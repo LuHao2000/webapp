@@ -1,0 +1,204 @@
+{% load static %}
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>添加学生信息</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href={% static 'layui/css/layui.css' %}>
+    <link rel="stylesheet" href={% static 'admin/css/style.css' %}>
+    <script src={% static 'layui/layui.js' %}></script>
+    <script src={% static 'js/jquery-3.3.1.min.js' %}></script>
+    <script src={% static 'js/vue.min.js' %}></script>
+    <script src={% static 'admin/js/config.js' %}></script>
+</head>
+<body onload="time()">
+
+<div id="app">
+    <!--顶栏-->
+    <header>
+        <h1 v-text="webname"></h1>
+        <div class="breadcrumb">
+            <i class="layui-icon">&#xe715;</i>
+            <ul>
+                <li v-for="vo in address">
+                    <a v-text="vo.name" :href="vo.url"></a> <span>/</span>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+
+    <div class="main">
+        <!--左栏-->
+        <div class="left">
+            <ul class="cl">
+                <li>
+                    <a href="../toindex">
+                        <i class="layui-icon"></i>
+                        <span>首页</span>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <i class="layui-icon"></i>
+                        <span>学生管理</span>
+                        <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
+
+                    </a>
+                    <div>
+                        <a href="../add16" @click="onActive(index,index2)">添加学生</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                    <div>
+                        <a href="../index16" @click="onActive(index,index2)">学生列表</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="../chart12">
+                        <i class="layui-icon"></i>
+                        <span>数据可视化</span>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <i class="layui-icon"></i>
+                        <span>系统设置</span>
+                        <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
+
+                    </a>
+                    <div>
+                        <a href="http://www.upc.edu.cn/xygk/xywh.htm" @click="onActive(index,index2)">友情链接</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                    <div>
+                        <a href="../tosecurity" @click="onActive(index,index2)">修改密码</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                </li>
+
+
+                <li>
+                    <a href="javascript:;">
+                        <i class="layui-icon"></i>
+                        <span>管理员管理</span>
+                        <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
+
+                    </a>
+                    <div>
+                        <a href="../setadmin" @click="onActive(index,index2)">添加管理员</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                    <div>
+                        <a href="../setuser" @click="onActive(index,index2)">删除管理员</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                </li>
+                <li>
+                    <a href="../tologinin">
+                        <i class="layui-icon"></i>
+                        <span>退出登录</span>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </a>
+                </li>
+
+            </ul>
+            <div style="height: 46%;position: relative">
+                <div style="bottom: 0px;position: absolute">
+                    <p id="showtime" style="color:white;font-size: large;text-align: center"></p>
+                </div>
+
+            </div>
+        </div>
+
+        <!--右侧-->
+        <div class="right p20">
+
+            <fieldset class="layui-elem-field layui-field-title">
+                <legend>添加学生信息</legend>
+            </fieldset>
+
+
+            <form class="layui-form " method="post" action="../add16/">
+                {% csrf_token %}
+                <div class="layui-form-item">
+                    <label class="layui-form-label">学号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="stuID" required="" lay-verify="required" placeholder=""
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">班级</label>
+                    <div class="layui-input-block">
+                        <input name="banji" required="" lay-verify="required" placeholder="" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">报考院校</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="baokao_school" required="" lay-verify="required" placeholder=""
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">录取院部</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="luqu_yuanbu" required="" lay-verify="required" placeholder=""
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">录取专业</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="luqu_zhuanye" required="" lay-verify="required" placeholder=""
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">排名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="paiming" required="" lay-verify="required" placeholder=""
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">提交后不可修改</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" value="1" name="state" lay-text="开启|关闭" checked="" lay-skin="switch">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" type="submit" lay-submit="" lay-filter="submit">立即提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <script>
+        /* 时间 */
+        function time() {
+            t_div = document.getElementById('showtime');
+            var now = new Date()
+            t_div.innerHTML = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + "/" + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            setTimeout(time, 1000);
+        }
+    </script>
+    <script src={% static 'admin/js/script.js' %}></script>
+    <script src={% static 'admin/js/update.js' %}></script>
+</body>
+</html>

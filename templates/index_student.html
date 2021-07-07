@@ -1,0 +1,141 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>中国石油大学（华东）毕业生信息查询平台</title>
+
+    <link rel="stylesheet" type="text/css" href={% static 'css/animate.min.css' %}><!--下拉动画-->
+    <link rel="stylesheet" type="text/css" href={% static 'css/index.css' %}>
+    <!--  <script type="text/javascript" src={%static 'js/jquery.js'%}></script> -->
+</head>
+
+<body>
+
+
+<div class="top wow fadeInDown">
+    <header class="toph2">
+        <a href="http://www.upc.edu.cn/xygk/xywh.htm" style="left: auto" class="logo"><img
+                src={% static 'images/title.png' %}></a>
+        <nav>
+            <a href="http://www.upc.edu.cn/xygk/xywh.htm" style="right: 1400px"><img
+                    src={% static 'images/1.png' %}></a>
+        </nav>
+
+    </header>
+</div>
+
+<div class="ban">
+    <div class="box_In">
+        <img class="ban1 wow slideInRight" src={% static 'images/艺术字.png' %}  alt="1">
+        <img class="ban1 wow slideInLeft" src={% static 'images/艺术字.png' %}/>
+        <img class="ban1 wow fadeInUp" src={% static 'images/艺术字.png' %}/>
+    </div>
+</div>
+<!-- box3 -->
+<div class="box3" id="box3">
+    <div class="box_In1">
+        <!--  <div class="hd wow fadeInDown" style="background-color: #00b6e2">
+            <h2>产品经理工作职能主要包含六个方面</h2>
+            <img  src={%static 'img/hd-bai.png'%} alt="" />
+        </div> -->
+        <div class="box3_con">
+            <ul class="clears">
+                <li class="wow fadeInDown">
+                    <img src={% static 'img/box3pic3.jpg' %}>
+                    <!--       <p>市场调研与分析</p> -->
+                    <p><a href="../index_stu">学生列表(12-15)</a></p>
+                </li>
+                <li class="wow fadeInUp">
+                    <img src={% static 'img/box3pic3.jpg' %}>
+                    <p><a href="../index16_stu">学生列表(16)</a></p>
+                </li>
+                <li class="wow fadeInDown">
+                    <img src={% static 'img/box3pic3.jpg' %}>
+                    <p><a href="../index17_stu">学生列表(17)</a></p>
+                </li>
+                <li class="wow fadeInUp">
+                    <img src={% static 'img/box3pic2.jpg' %}>
+                    <p><a href="../chart12">数据统计</a></p>
+                </li>
+                <li class="wow fadeInDown">
+                    <img src={% static 'img/box3pic5.jpg' %}>
+                    <p><a href="../tosecurity">修改密码</a></p>
+                </li>
+                <li class="wow fadeInDown">
+                    <img src={% static 'img/box3pic6.jpg' %}>
+                    <p><a href="../tologinin">退出登录</a></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="inner">
+            <div class="foot_ch about">
+                <div class="div_list">
+                    <h3>关于我们</h3>
+                    <ul>
+                        <li><a class="a_gd" target="_blank">中国石油大学华东简介</a></li>
+                        <li><a class="a_gd" target="_blank">加入我们</a></li>
+                        <li><a class="a_gd" target="_blank">我们声明</a>
+                            <!--<li><a class="a_gd" href="/channel/about/about.shtml" target="_blank">联系传智</a></li>-->
+                        </li>
+                    </ul>
+                </div>
+                <div class="div_list">
+                    <h3>中国石油大学（华东）毕业生信息平台</h3>
+                    <ul>
+                        <li><a class="a_gd" href="/" target="_blank">管理员联系方式</a></li>
+                        <li><a class="a_gd" href="/" target="_blank">1435627</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="div_list div_ewm">
+                    <div class="ewmbox"><span class="iconbox iconbox2"><i class="icon-0043 iconfont"></i></span><span
+                            class="icon_tt">微信公众号</span>
+                        <div class="ewm" style="display: none"><img src={% static 'img/wx_cz.jpg' %}/>
+                            <p><span>扫描二维码</span><br/>
+                                关注中国石油大学（华东）微信公众账号</p>
+                        </div>
+                    </div>
+                    <div class="ewmbox"><a target="_blank"><span class="iconbox iconbox3"><i
+                            class="icon-0037 iconfont"></i></span><span class="icon_tt">新浪微博</span></a>
+                        <div class="ewm" style="display: none"><img src={% static 'img/wx_cz.jpg' %}/>
+                            <p><span>扫描二维码</span><br/>
+                                关注中国石油大学（华东）新浪微博账号</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="foot_ch add">
+                <!--<h2><img src={% static 'images/xiaohui.png'%} alt="中国石油大学（华东）" width="145" /></h2> -->
+                <p>版权所有 中国石油大学（华东）计算机科学与技术系&nbsp;&nbsp;&nbsp;学院地址： 山东省青岛市经济开发区长江西路66号&nbsp;&nbsp;&nbsp;</br>
+                    电话：13366285645&nbsp;&nbsp;&nbsp;京ICP备16014951号</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src={% static 'js/zx.js' %}></script><!---微博新浪二维码-->
+<!--下拉动画-->
+<script src={% static 'js/wow.min.js' %}></script>
+<script>
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
+        new WOW().init();
+    }
+    ;
+    $(function () {
+
+    });
+</script>
+<!--下拉动画-->
+<!---自动往上移动--->
+<script src={% static 'js/jquery.SuperSlide.2.1.1.js' %}></script>
+<script src={% static 'js/index.js' %}></script>
+<!-- <script src="js/jquery.SuperSlide.2.1.1.js"></script> --->
+<!--<script src="js/index.js"></script>-->
+
+</body>
+</html>
