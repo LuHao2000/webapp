@@ -6,10 +6,21 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from sims import models
 from sims.models import userinfo
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
+
+def tomessage(request):
+    return render(request, 'sims/message.html')
+    # return redirect('/sims/setadmin')
 
 
 def tologinin(request):
-    return render(request, 'login.html')
+    return render(request, 'sims/login.html')
+
+# def tobbs(request):
+#     # return redirect('/bbs')
+#     return render(request, 'bbs/index.html')
 
 
 # 登录函数：
@@ -19,23 +30,40 @@ def loginin(request):
         pwd = request.POST.get("pwd")
         if user and pwd:
             c = userinfo.objects.filter(user=user, pwd=pwd).count()
-            b = userinfo.objects.get(user=user)
-            if c >= 1:
-                if b.flag != "0":
-                    return render(request, 'index.html')
+            try:
+                b = userinfo.objects.get(user=user)
+            except Exception as a:
+                messages.error(request, '请输入正确账号密码.')
+                return render(request, 'sims/login.html')
+            if c == 1:
+                # 学生
+                if b.flag == "0":
+                    return render(request, 'sims/index_student.html')
+                # 教务处
+                elif b.flag == "1":
+                    return render(request, 'sims/index.html')
+                # 学工处
+                elif b.flag == "2":
+                    return render(request, 'sims/index.html')
+                # 企业
+                elif b.flag == "3":
+                    # return render(request, 'enterprise/info.html')
+                    return redirect('/enterprise')
+            #     管理员
                 else:
-                    return render(request, 'index_student.html')
+                    return render(request, 'sims/index.html')
             else:
                 messages.error(request, '请输入正确账号密码.')
-                return render(request, 'login.html')
+                return render(request, 'sims/login.html')
         else:
             messages.error(request, '请输入正确账号密码.')
-            return render(request, 'login.html')
-
+            return render(request, 'sims/login.html')
+    elif request.method == 'GET':
+        return render(request, 'sims/login.html')
 
 # 选择注册界面 将跳转至注册功能
 def toregister(requset):
-    return render(requset, 'register.html')
+    return render(requset, 'sims/register.html')
 
 
 # 注册
@@ -54,66 +82,129 @@ def register(request):
                 us = userinfo(user=user, pwd=pwd, flag=0)
                 us.save()
                 messages.error(request, '注册成功，请登录.')
-                return render(request, 'login.html')
+                return render(request, 'sims/login.html')
             else:
                 messages.error(request, '两次输入的密码不一致，请重新输入.')
-                return render(request, 'register.html')
+                return render(request, 'sims/register.html')
 
         else:
             messages.error(request, '请输入用户名和两次一致的密码.')
-            return render(request, 'register.html')
+            return render(request, 'sims/register.html')
     else:
         messages.error(request, '用户名已被注册，请换个名字试试.')
-        return render(request, 'register.html')
+        return render(request, 'sims/register.html')
 
 
 # 返回首页渲染
 def toindex(request):
-    return render(request, 'index.html')
+    return render(request, 'sims/index.html')
 
 
 # 返回首页渲染
 def toindex_stu(request):
-    return render(request, 'index_student.html')
+    return render(request, 'sims/index_student.html')
 
 
 # 学生信息列表处理函数
 def index(request):
-    conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
-    students = models.Student_luhao_shanjian.objects.all()[0:20]
-    return render(request, 'user_index.html', {'students': students})
+    # conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
+    # students = models.Student_luhao_shanjian.objects.all()[0:20]
+    student_list = models.Student_luhao_shanjian.objects.all()
+    paginator = Paginator(student_list, 25) # Show 25 contacts per page
+    page = request.GET.get('page')
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        students = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        students = paginator.page(paginator.num_pages)
+
+    # return render(request, 'list.html', {'contacts': contacts})
+    return render(request, 'sims/user_index.html', {'students': students})
 
 
 def index_stu(request):
-    conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
-    students = models.Student_luhao_shanjian.objects.all()[0:20]
-    return render(request, 'user_index_student.html', {'students': students})
+    # conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
+    student_list = models.Student_luhao_shanjian.objects.all()
+    paginator = Paginator(student_list, 25)  # Show 25 contacts per page
+    page = request.GET.get('page')
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        students = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        students = paginator.page(paginator.num_pages)
+    return render(request, 'sims/user_index_student.html', {'students': students})
 
 
 # 学生16信息列表处理函数
 def index16(request):
-    conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
-    students = models.stu16.objects.all()[0:20]
-    return render(request, 'user_index_16.html', {'students': students})
+    # conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
+    student_list = models.stu16.objects.all()
+    paginator = Paginator(student_list, 25)  # Show 25 contacts per page
+    page = request.GET.get('page')
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        students = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        students = paginator.page(paginator.num_pages)
+    return render(request, 'sims/user_index_16.html', {'students': students})
 
 
 def index16_stu(request):
-    conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
-    students = models.stu16.objects.all()[0:20]
-    return render(request, 'user_index_16_student.html', {'students': students})
+    # conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
+    student_list = models.stu16.objects.all()
+    paginator = Paginator(student_list, 25)  # Show 25 contacts per page
+    page = request.GET.get('page')
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        students = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        students = paginator.page(paginator.num_pages)
+    return render(request, 'sims/user_index_16_student.html', {'students': students})
 
 
 # 学生16信息列表处理函数
 def index17(request):
-    conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
-    students = models.stu17.objects.all()[0:20]
-    return render(request, 'user_index_17.html', {'students': students})
+    # conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
+    student_list = models.stu17.objects.all()
+    paginator = Paginator(student_list, 25)  # Show 25 contacts per page
+    page = request.GET.get('page')
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        students = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        students = paginator.page(paginator.num_pages)
+    return render(request, 'sims/user_index_17.html', {'students': students})
 
 
 def index17_stu(request):
-    conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
-    students = models.stu17.objects.all()[0:20]
-    return render(request, 'user_index_17_student.html', {'students': students})
+    # conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
+    student_list = models.stu17.objects.all()
+    paginator = Paginator(student_list, 25)  # Show 25 contacts per page
+    page = request.GET.get('page')
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        students = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        students = paginator.page(paginator.num_pages)
+    return render(request, 'sims/user_index_17_student.html', {'students': students})
 
 
 # 根据首页输入框模糊查询
@@ -128,7 +219,7 @@ def findStudent(request):
             xuezhi__icontains=str) | Q(danwei_location__icontains=str) | Q(danwei__icontains=str))
     # 获取数据的总条数
     count = students.__len__()
-    return render(request, "user_index.html", context={"students": students, "count": count})
+    return render(request, "sims/user_index.html", context={"students": students, "count": count})
 
 
 def findStudent_stu(request):
@@ -142,7 +233,7 @@ def findStudent_stu(request):
             xuezhi__icontains=str) | Q(danwei_location__icontains=str) | Q(danwei__icontains=str))
     # 获取数据的总条数
     count = students.__len__()
-    return render(request, "user_index_student.html", context={"students": students, "count": count})
+    return render(request, "sims/user_index_student.html", context={"students": students, "count": count})
 
 
 # 根据首页输入框模糊查询
@@ -155,7 +246,7 @@ def findStudent16(request):
             luqu_yuanbu__icontains=str) | Q(luqu_zhuanye__icontains=str) | Q(paiming__icontains=str))
     # 获取数据的总条数
     count = students.__len__()
-    return render(request, "user_index_16.html", context={"students": students, "count": count})
+    return render(request, "sims/user_index_16.html", context={"students": students, "count": count})
 
 
 def findStudent16_stu(request):
@@ -167,7 +258,7 @@ def findStudent16_stu(request):
             luqu_yuanbu__icontains=str) | Q(luqu_zhuanye__icontains=str) | Q(paiming__icontains=str))
     # 获取数据的总条数
     count = students.__len__()
-    return render(request, "user_index_16_student.html", context={"students": students, "count": count})
+    return render(request, "sims/user_index_16_student.html", context={"students": students, "count": count})
 
 
 # 根据首页输入框模糊查询
@@ -180,7 +271,7 @@ def findStudent17(request):
             luqu_yuanbu__icontains=str) | Q(luqu_zhuanye__icontains=str) | Q(leixing__icontains=str))
     # 获取数据的总条数
     count = students.__len__()
-    return render(request, "user_index_17.html", context={"students": students, "count": count})
+    return render(request, "sims/user_index_17.html", context={"students": students, "count": count})
 
 
 def findStudent17_stu(request):
@@ -192,13 +283,13 @@ def findStudent17_stu(request):
             luqu_yuanbu__icontains=str) | Q(luqu_zhuanye__icontains=str) | Q(leixing__icontains=str))
     # 获取数据的总条数
     count = students.__len__()
-    return render(request, "user_index_17_student.html", context={"students": students, "count": count})
+    return render(request, "sims/user_index_17_student.html", context={"students": students, "count": count})
 
 
 # 学生信息新增处理函数
 def add(request):
     if request.method == 'GET':
-        return render(request, 'user_add.html')
+        return render(request, 'sims/user_add.html')
     else:
         stuID = request.POST.get('stuID')
         gender = request.POST.get('gender')
@@ -233,7 +324,7 @@ def add(request):
 # 学生信息新增处理函数
 def add16(request):
     if request.method == 'GET':
-        return render(request, 'user_add16.html')
+        return render(request, 'sims/user_add16.html')
     else:
         stuID = request.POST.get('stuID')
         banji = request.POST.get('banji')
@@ -256,7 +347,7 @@ def add16(request):
 # 学生17信息新增处理函数
 def add17(request):
     if request.method == 'GET':
-        return render(request, 'user_add17.html')
+        return render(request, 'sims/user_add17.html')
     else:
         stuID = request.POST.get('stuID')
         banji = request.POST.get('banji')
@@ -288,7 +379,7 @@ def edit(request):
         cursor.close()
         conn.close()
         print(student)
-        return render(request, 'user_edit.html', {'student': student})
+        return render(request, 'sims/user_edit.html', {'student': student})
     else:
         id = request.POST.get("id")
         stuID = request.POST.get('stuID')
@@ -330,7 +421,7 @@ def edit16(request):
         cursor.close()
         conn.close()
         print(student)
-        return render(request, 'user_edit16.html', {'student': student})
+        return render(request, 'sims/user_edit16.html', {'student': student})
     else:
         id = request.POST.get("id")
         stuID = request.POST.get('stuID')
@@ -365,7 +456,7 @@ def edit17(request):
         cursor.close()
         conn.close()
         print(student)
-        return render(request, 'user_edit17.html', {'student': student})
+        return render(request, 'sims/user_edit17.html', {'student': student})
     else:
         id = request.POST.get("id")
         stuID = request.POST.get('stuID')
@@ -415,7 +506,7 @@ def delete17(request):
 
 # 选择密码修改界面 将跳转至密码修改功能
 def tosecurity(requset):
-    return render(requset, 'user_old_security.html')
+    return render(requset, 'sims/user_old_security.html')
 
 
 # 修改密码
@@ -424,7 +515,7 @@ def security(request):
     pwd_old = request.POST.get("pwd_old")
     c = userinfo.objects.filter(user=user, pwd=pwd_old).count()
     if c != 0:
-        return render(request, 'user_new_security.html')
+        return render(request, 'sims/user_new_security.html')
     else:
         messages.error(request, '请输入正确的原账号密码.')
         return redirect('../')
@@ -459,12 +550,12 @@ def newpw_set(request):
 
 
 def chart12(request):
-    return render(request, 'chart.html')
+    return render(request, 'sims/chart.html')
 
 
 def setadmin(request):
     if request.method == 'GET':
-        return render(request, 'setadmin.html')
+        return render(request, 'sims/setadmin.html')
     else:
         username = request.POST.get("user")
         conn = pymysql.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
@@ -482,7 +573,7 @@ def setadmin(request):
 
 def setuser(request):
     if request.method == 'GET':
-        return render(request, 'setuser.html')
+        return render(request, 'sims/setuser.html')
     else:
         username = request.POST.get("user")
         conn = pymysql.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')

@@ -1,0 +1,171 @@
+{% load static %}
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name='TTUNION_verify' content='b846c3c2b85efabc496d2a2b8399cd62'>
+	<meta name="sogou_site_verification" content="gI1bINaJcL"/>
+	<meta name="360-site-verification" content="37ae9186443cc6e270d8a52943cd3c5a"/>
+	<meta name="baidu_union_verify" content="99203948fbfbb64534dbe0f030cbe817">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE;chrome=1">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="author" content="AUI, a-ui.com">
+	<meta name="baidu-site-verification" content="ZVPGgtpUfW"/>
+	<title>内容同步</title>
+	<link rel="icon" type="image/x-icon" href={% static 'favicon.ico' %}>
+	<link href={%static 'title.png' %} sizes="114x114" rel="apple-touch-icon-precomposed">
+	<link type="text/css" rel="stylesheet" href={% static 'admin/css/core.css' %}>
+	<link type="text/css" rel="stylesheet" href={% static 'admin/css/icon.css' %}>
+	<link type="text/css" rel="stylesheet" href={% static 'admin/css/home.css' %}>
+
+
+</head>
+<body>
+
+<!-- head YDC begin -->
+	<header class="ydc-header">
+		<div class="ydc-entered">
+			<div class="ydc-header-content ydc-flex">
+				<div class="ydc-column">
+					<a href="toinfo" class="ydc-column-ydc-logo">中国石油大学（华东）就业信息平台——企业版
+					</a>
+				</div>
+				<div class="ydc-column">
+					<div class="ydc-column-user">
+						<div class="ydc-user-photo">
+							<a href="javascript:;">
+								<img src={% static 'admin/images/icon/photo.png' %} title="" about="" alt="">
+							</a>
+						</div>
+						<div class="ydc-user-info">
+							<div class="ydc-user-info-name">
+								<a href="info.html">海康威视</a>
+							</div>
+							<div class="ydc-user-info-func ydc-flex">
+								<span class="ydc-tag">账号审核中</span>
+								<span class="ydc-mal"><i class="ydc-icon ydc-icon-mail fl"></i><em>12</em></span>
+								<a href="javascript:;">退出</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+<!-- head YDC end -->
+
+<!-- content YDC begin -->
+	<section>
+		<div class="ydc-content-slide ydc-body">
+			<div class="ydc-flex">
+				<!-- left begin -->
+				<div class="ydc-column ydc-column-2">
+					<div class="ydc-menu">
+						<ul>
+							<li class="ydc-menu-item">
+								<a href="toinfo" ><i class="ydc-icon ydc-icon-home fl"></i>账号信息</a>
+							</li>
+							<li class="ydc-menu-item">
+								<a href="torelease"><i class="ydc-icon ydc-icon-find fl"></i>发布</a>
+							</li>
+							<li class="ydc-menu-item">
+								<span class="ydc-menu-sub-title">
+									<i class="ydc-icon ydc-icon-file fl"></i>管理
+								</span>
+								<ul>
+									<li>
+										<a href="tocontent">内容管理</a>
+									</li>
+									<li>
+										<a href="torelated" class="active">内容同步</a>
+									</li>
+								</ul>
+							</li>
+							<li class="ydc-menu-item">
+								<span class="ydc-menu-sub-title">
+									<i class="ydc-icon ydc-icon-set fl"></i>查看
+								</span>
+								<ul>
+									<li>
+										<a href="toindex">就业信息列表</a>
+									</li>
+								</ul>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+				<!-- left end -->
+				<!-- right begin -->
+				<div class="ydc-column ydc-column-8">
+					<div class="ydc-release-content">
+						<div class="ydc-tabPanel ydc-tabPanel-release">
+							<div class="ydc-release-tab-head">
+								<ul>
+									<li class="hit">内容同步</li>
+								</ul>
+							</div>
+							<div class="ydc-panes">
+								<div class="ydc-pane" style="display:block;">
+									<div class="clearfix">
+										<div class="fl ydc-group-sel">
+											<select  style="width:160px;">
+												<option>请选择同步链接的类型</option>
+												<option>RSS或文章列表页</option>
+												<option>微信</option>
+												<option>头条</option>
+											</select>
+										</div>
+										<div class="fl ydc-group-input" style="width:755px;">
+											<input type="text" placeholder="请输入同步链接，请您务必确保对提交的内容源拥有版权" style="width:88%">
+											<button class="ydc-group-button">确 定</button>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- right end -->
+			</div>
+		</div>
+
+	</section>
+<!-- content YDC end -->
+
+	<script type="text/javascript" src={% static 'admin/js/jquery.min.js' %}></script>
+	<script type="text/javascript">
+	    var slideIndex = 0;
+	    showSlides();
+
+	    function showSlides() {
+	        var i;
+	        var slides = document.getElementsByClassName("mySlides");
+	        for (i = 0; i < slides.length; i++) {
+	            slides[i].style.display = "none";
+	        }
+	        slideIndex++;
+	        if (slideIndex> slides.length) {slideIndex = 1}
+	        slides[slideIndex-1].style.display = "block";
+	        setTimeout(showSlides, 3000); // 滚动时间
+	    }
+	</script>
+
+	<script type="text/javascript">
+	    $(function(){
+	        $('.ydc-tabPanel ul li').click(function(){
+	            $(this).addClass('hit').siblings().removeClass('hit');
+	            $('.ydc-panes>div:eq('+$(this).index()+')').show().siblings().hide();
+	        })
+	    })
+	</script>
+
+</body>
+</html>

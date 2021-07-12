@@ -1,0 +1,79 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>用户登陆 </title>
+    <base href="/">
+    <link rel="stylesheet" href={%static 'layui/css/layui.css'%}>
+    <link rel="stylesheet" href={%static 'admin/css/login.css'%}>
+    <script type="text/javascript" src={%static 'layui/layui.js'%}></script>
+
+
+</head>
+
+
+
+
+<body id="login">
+<div class="login">
+
+    <h2>就业信息网站登录</h2>
+        <div class="layui-form-item">
+       <a href="sims/tomessage" class="qian">返回咨询页</a>
+       <a href="sims/toregister" class="back">前往注册</a>
+    </div>
+    <form class="layui-form" method="post" target="_self" action="sims/loginin/">
+        {%csrf_token%}
+        <div class="layui-form-item">
+            <input type="username" name="user" placeholder="用户名" class="layui-input">
+            <i class="layui-icon input-icon">&#xe66f;</i>
+        </div>
+        <div class="layui-form-item">
+            <input type="password" name="pwd" placeholder="密码" class="layui-input">
+            <i class="layui-icon input-icon">&#xe673;</i>
+        </div>
+        <div class="layui-form-item">
+            <input type="checkbox" name="box" lay-skin="primary" title="记住密码" checked="">
+            <a class="back" href="sims/tosecurity" style="margin-top: 10px">忘记密码</a>
+        </div>
+        <div class="layui-form-item">
+            <button type="sbumit" style="width: 100%" class="layui-btn" >立即登录</button>
+            {#            <button  style="width: 100%" class="layui-btn" lay-submit lay-filter="login">立即登录</button>#}
+        </div>
+</form>
+
+{% if messages %}
+<script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}');
+        {% endfor %}
+    </script>
+
+{% endif %}
+
+
+
+    <script>
+        layui.use('form', function() {
+            const form = layui.form;
+            const layer = layui.layer;
+
+            form.on('submit(login)', function(data) {
+                layer.load({
+                    shade: 0.5,
+                    time: 0,
+                });
+                setTimeout(function() {
+                    window.location.href = './loginin/';
+                }, 1000);
+
+                return false;
+            });
+        });
+    </script>
+</div>
+
+</body>
+</html>

@@ -5,12 +5,16 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.tologinin),
+    url(r'^$', views.tomessage),
+    url(r'^tomessage/$', views.tomessage),
+    # url(r'^$', views.tologinin),
     url(r'^setadmin/$', views.setadmin),
     url(r'^setuser/$', views.setuser),
     url(r'^toindex/$', views.toindex),
+    # url(r'^tobbs/$', views.tobbs),
     url(r'^toindex_stu/$', views.toindex_stu),
     url(r'^tologinin/$', views.tologinin),
+    url(r'^sims/tologinin/$', views.tologinin),
     url(r'^loginin/$', views.loginin),
     url(r'^loginin/tologinin/$', views.tologinin),
     url(r'^loginin/toindex/$', views.toindex),

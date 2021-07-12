@@ -261,6 +261,7 @@
         myChart.resize();
     });
 })();
+
 // 核心单位柱状图模块
 (function () {
     // 基于准备好的dom，初始化echarts实例
@@ -372,6 +373,7 @@
         myChart.resize();
     });
 })();
+
 // 折线图 就业升学
 (function () {
     // 基于准备好的dom，初始化echarts实例
@@ -548,10 +550,10 @@
                     }
                 },
                 data: [
-                    9,
-                    1,
-                    2,
-                    7,
+                    23,
+                    8,
+                    8,
+                    24,
                 ]
             }
         ]
@@ -596,7 +598,7 @@
         ],
         series: [
             {
-                name: "点位统计",
+                name: "就业地区",
                 type: "pie",
                 // 如果radius是百分比则必须加引号
                 radius: ["10%", "70%"],
@@ -634,3 +636,299 @@
         myChart.resize();
     });
 })();
+
+//升学去向统计
+(function () {
+    // 1. 实例化对象
+    var myChart = echarts.init(document.querySelector(".line2  .chart"));
+    // 2. 指定配置项和数据
+    var option = {
+    color: ["#4fbbc6", "#b3dcf5","#60a5d6"],
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross',
+            label: {
+                backgroundColor: '#6a7985'
+            }
+        }
+    },
+    legend: {
+        data: ['985高校', '其他高校', '211高校'],
+         top: "0%",
+            textStyle: {
+                color: "rgba(255,255,255,.5)",
+                fontSize: "12"
+            }
+
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+     xAxis: [
+            {
+                type: "category",
+                boundaryGap: false,
+                axisLabel: {
+                    textStyle: {
+                        color: "rgba(255,255,255,.6)",
+                        fontSize: 12
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: "rgba(255,255,255,.2)"
+                    }
+                },
+
+                data: [
+                    "2012",
+                    "2013",
+                    "2014",
+                    "2015",
+                ]
+            },
+            {
+                axisPointer: {show: false},
+                axisLine: {show: false},
+                position: "bottom",
+                offset: 20
+            }
+        ],
+
+        yAxis: [
+            {
+                type: "value",
+                axisTick: {show: false},
+                axisLine: {
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1)"
+                    }
+                },
+                axisLabel: {
+                    textStyle: {
+                        color: "rgba(255,255,255,.6)",
+                        fontSize: 12
+                    }
+                },
+
+                splitLine: {
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1)"
+                    }
+                }
+            }
+        ],
+    series: [
+        {
+            name: '985高校',
+            type: 'line',
+            stack: '总量',
+            areaStyle: {},
+            emphasis: {
+                focus: 'series'
+            },
+            data: [0, 1, 2, 4]
+        },
+        {
+            name: '其他高校',
+            type: 'line',
+            stack: '总量',
+            areaStyle: {},
+            emphasis: {
+                focus: 'series'
+            },
+            data: [1, 0, 2, 0]
+        },
+        {
+            name: '211高校',
+            type: 'line',
+            stack: '总量',
+            areaStyle: {},
+            emphasis: {
+                focus: 'series'
+            },
+            data: [22, 7, 4, 20]
+        },
+    ]
+};
+
+    // 3. 配置项和数据给我们的实例化对象
+    myChart.setOption(option);
+    // 4. 当我们浏览器缩放的时候，图表也等比例缩放
+    window.addEventListener("resize", function () {
+        // 让我们的图表调用 resize这个方法
+        myChart.resize();
+    });
+})();
+
+//各学院人数分布
+(function () {
+    // 1. 实例化对象
+    var myChart = echarts.init(document.querySelector(".radar  .chart"));
+    // 2. 指定配置项和数据
+    var option = {
+    dataset: {
+        source: [
+            ['score', 'amount', 'product'],
+            [89.3, 545, '其他'],
+            [57.1, 187, '机电'],
+            [89.7, 197, '地学院'],
+            [74.4, 235, '化工'],
+            [50.1, 384, '经管']
+        ]
+    },
+    grid: {
+        containLabel: true,
+        x:2,
+        y:5,
+        x2:12,
+        y2:50,
+    },
+    xAxis: {
+        name: 'amount',
+         axisLabel: {
+                color: "rgba(255,255,255,.7)"
+            },
+    },
+    yAxis: {
+        type: 'category',
+     axisLabel: {
+                color: "rgba(255,255,255,.7)"
+            },
+    },
+    visualMap: {
+        orient: 'horizontal',
+        left: 'center',
+        min: 10,
+        max: 100,
+        text: ['High Score', 'Low Score'],
+        // Map the score column to color
+        textStyle: {
+                color: "rgba(255,255,255,.7)"
+            },
+        dimension: 0,
+        inRange: {
+            color: ["#b3dcf5","#2f89cf"]
+        }
+    },
+    series: [
+        {
+            type: 'bar',
+            encode: {
+                // Map the "amount" column to X axis.
+                x: 'amount',
+                // Map the "product" column to Y axis
+                y: 'product'
+            }
+        }
+    ]
+};
+
+
+    // 3. 配置项和数据给我们的实例化对象
+    myChart.setOption(option);
+    // 4. 当我们浏览器缩放的时候，图表也等比例缩放
+    window.addEventListener("resize", function () {
+        // 让我们的图表调用 resize这个方法
+        myChart.resize();
+    });
+})();
+
+//就业方向统计
+(function () {
+    // 1. 实例化对象
+    var myChart = echarts.init(document.querySelector(".funnel  .chart"));
+    // 2. 指定配置项和数据
+    var option = {
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c}",
+        smooth: true
+    },
+      color: [
+                    "#5c83b8",
+                    "#98b0d0",
+                    "#84a2d4",
+                    "#2674b7",
+                    "#6ca7ce"
+                ],
+     grid: {
+        containLabel: true,
+        x:2,
+        y:5,
+        x2:12,
+        y2:50,
+    },
+
+    legend: {
+         textStyle: {
+             color: "rgba(255,255,255,.7)"
+         },
+        data: ['石油','海油','电力','人力资源','银行']
+    },
+
+    series: [
+        {
+            name:'就业方向',
+            type:'funnel',
+            left: '10%',
+            top: 40,
+            //x2: 80,
+            bottom: 5,
+            width: '80%',
+            // height: {totalHeight} - y - y2,
+            min: 0,
+            max: 100,
+            minSize: '0%',
+            maxSize: '100%',
+            sort: 'descending',
+            smooth: true,
+            gap: 2,
+            label: {
+                show: true,
+                position: 'inside',
+                color: "rgba(255,255,255,.7)"
+            },
+            labelLine: {
+                length: 10,
+                lineStyle: {
+                    width: 1,
+                    type: 'solid'
+                }
+            },
+            itemStyle: {
+                borderColor: '#fff',
+                borderWidth: 1
+            },
+            emphasis: {
+                label: {
+                    fontSize: 20,
+                }
+            },
+             textStyle: {
+             color: "rgba(255,255,255,.7)"
+         },
+            data: [
+                {value: 407, name: '石油'},
+                {value: 80, name: '海油'},
+                {value: 54, name: '电力'},
+                {value: 184, name: '人力资源'},
+                {value: 66, name: '银行'}
+            ]
+        }
+    ]
+};
+
+    // 3. 配置项和数据给我们的实例化对象
+    myChart.setOption(option);
+    // 4. 当我们浏览器缩放的时候，图表也等比例缩放
+    window.addEventListener("resize", function () {
+        // 让我们的图表调用 resize这个方法
+        myChart.resize();
+    });
+})();
+

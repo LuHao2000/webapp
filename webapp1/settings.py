@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sims',
     'rest_framework',
+    'enterprise',
+    'bbs',
+    'webchat',
 ]
 
 MIDDLEWARE = [
@@ -131,8 +134,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = (
-    ("css", os.path.join(STATIC_ROOT, 'admin/css')))
+STATICFILES_DIRS = [
+    ("css", os.path.join(STATIC_ROOT, 'admin/css')),
+     os.path.join(BASE_DIR, "statics"),
+    os.path.join(BASE_DIR, "uploads"),
+]
     # ("js", os.path.join(STATIC_ROOT, 'js')),
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'static/'),
@@ -141,3 +147,4 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_URL = '/accounts/login/'
