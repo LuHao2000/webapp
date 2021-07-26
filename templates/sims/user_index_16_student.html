@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:;">
+                    <a href="javascript:">
                         <i class="layui-icon"></i>
                         <span>学生管理</span>
                         <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
@@ -51,6 +51,7 @@
                         <a href="../index16_stu" @click="onActive(index,index2)">学生列表</a>
                         <i class="layui-icon active">&#xe623;</i>
                     </div>
+
                 </li>
 
                 <li>
@@ -61,7 +62,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:;">
+                    <a href="javascript:">
                         <i class="layui-icon"></i>
                         <span>系统设置</span>
                         <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
@@ -77,7 +78,19 @@
                     </div>
                 </li>
                 <li>
-
+                    <a href="../../bbs">
+                        <i class="layui-icon"></i>
+                        <span>前往论坛</span>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="../zhaopin">
+                        <i class="layui-icon"></i>
+                        <span>招聘信息</span>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </a>
+                </li>
 
                 <li>
                     <a href="../tologinin">
@@ -155,7 +168,7 @@
                     {% endif %}
 
                     {% for number in students.paginator.page_range %}
-                            {% if number == students.number %}
+                        {% if number == students.number %}
                             <a href="?page={{ number }}" style="font-size: 33px">{{ number }}</a>
                         {% else %}
                             <a href="?page={{ number }}">{{ number }}</a>
@@ -171,7 +184,7 @@
                             </a>
                         </li>
                     {% endif %}
-                <!--    <span>{{ students.number }} /{{ students.paginator.num_pages }}</span>  -->
+                    <!--    <span>{{ students.number }} /{{ students.paginator.num_pages }}</span>  -->
                 </ul>
             </div>
         </div>

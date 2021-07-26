@@ -65,3 +65,14 @@ def file_upload(request):
         for chunk in file_obj.chunks():
             new_file_obj.write(chunk)
     return HttpResponse('--upload success---')
+
+
+def category(request,id):
+    category_obj = models.Category.objects.get(id=id)
+    if category_obj.positon_index == 1: #我们把板块"全部"认定为首页显示,把所有的文章都显示出来,首页就认定当position_index 为1时既是首页.
+        article_list = models.Article.objects.filter(status='published')
+    else:
+        article_list = models.Article.objects.filter(category_id = category_obj.id,status='published')
+    return render(request,"../../webapp1/templates/bbs/index.html",{'category_list':category_list,
+                                            'category_obj':category_obj,
+                                            'article_list':article_list})

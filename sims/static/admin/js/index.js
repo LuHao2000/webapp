@@ -374,6 +374,100 @@
     });
 })();
 
+//就业方向统计
+(function () {
+    // 1. 实例化对象
+    var myChart = echarts.init(document.querySelector(".funnel  .chart"));
+    // 2. 指定配置项和数据
+    var option = {
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c}",
+        smooth: true
+    },
+      color: [
+                    "#5c83b8",
+                    "#98b0d0",
+                    "#84a2d4",
+                    "#2674b7",
+                    "#6ca7ce"
+                ],
+     grid: {
+        containLabel: true,
+        x:2,
+        y:5,
+        x2:12,
+        y2:50,
+    },
+
+    legend: {
+         textStyle: {
+             color: "rgba(255,255,255,.7)"
+         },
+        data: ['石油','海油','电力','人力资源','银行']
+    },
+
+    series: [
+        {
+            name:'就业方向',
+            type:'funnel',
+            left: '10%',
+            top: 40,
+            //x2: 80,
+            bottom: 5,
+            width: '80%',
+            // height: {totalHeight} - y - y2,
+            min: 0,
+            max: 100,
+            minSize: '0%',
+            maxSize: '100%',
+            sort: 'descending',
+            smooth: true,
+            gap: 2,
+            label: {
+                show: true,
+                position: 'inside',
+                color: "rgba(255,255,255,.7)"
+            },
+            labelLine: {
+                length: 10,
+                lineStyle: {
+                    width: 1,
+                    type: 'solid'
+                }
+            },
+            itemStyle: {
+                borderColor: '#fff',
+                borderWidth: 1
+            },
+            emphasis: {
+                label: {
+                    fontSize: 20,
+                }
+            },
+             textStyle: {
+             color: "rgba(255,255,255,.7)"
+         },
+            data: [
+                {value: 407, name: '石油'},
+                {value: 80, name: '海油'},
+                {value: 54, name: '电力'},
+                {value: 184, name: '人力资源'},
+                {value: 66, name: '银行'}
+            ]
+        }
+    ]
+};
+
+    // 3. 配置项和数据给我们的实例化对象
+    myChart.setOption(option);
+    // 4. 当我们浏览器缩放的时候，图表也等比例缩放
+    window.addEventListener("resize", function () {
+        // 让我们的图表调用 resize这个方法
+        myChart.resize();
+    });
+})();
+
 // 折线图 就业升学
 (function () {
     // 基于准备好的dom，初始化echarts实例
@@ -838,97 +932,5 @@
     });
 })();
 
-//就业方向统计
-(function () {
-    // 1. 实例化对象
-    var myChart = echarts.init(document.querySelector(".funnel  .chart"));
-    // 2. 指定配置项和数据
-    var option = {
-    tooltip: {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c}",
-        smooth: true
-    },
-      color: [
-                    "#5c83b8",
-                    "#98b0d0",
-                    "#84a2d4",
-                    "#2674b7",
-                    "#6ca7ce"
-                ],
-     grid: {
-        containLabel: true,
-        x:2,
-        y:5,
-        x2:12,
-        y2:50,
-    },
 
-    legend: {
-         textStyle: {
-             color: "rgba(255,255,255,.7)"
-         },
-        data: ['石油','海油','电力','人力资源','银行']
-    },
-
-    series: [
-        {
-            name:'就业方向',
-            type:'funnel',
-            left: '10%',
-            top: 40,
-            //x2: 80,
-            bottom: 5,
-            width: '80%',
-            // height: {totalHeight} - y - y2,
-            min: 0,
-            max: 100,
-            minSize: '0%',
-            maxSize: '100%',
-            sort: 'descending',
-            smooth: true,
-            gap: 2,
-            label: {
-                show: true,
-                position: 'inside',
-                color: "rgba(255,255,255,.7)"
-            },
-            labelLine: {
-                length: 10,
-                lineStyle: {
-                    width: 1,
-                    type: 'solid'
-                }
-            },
-            itemStyle: {
-                borderColor: '#fff',
-                borderWidth: 1
-            },
-            emphasis: {
-                label: {
-                    fontSize: 20,
-                }
-            },
-             textStyle: {
-             color: "rgba(255,255,255,.7)"
-         },
-            data: [
-                {value: 407, name: '石油'},
-                {value: 80, name: '海油'},
-                {value: 54, name: '电力'},
-                {value: 184, name: '人力资源'},
-                {value: 66, name: '银行'}
-            ]
-        }
-    ]
-};
-
-    // 3. 配置项和数据给我们的实例化对象
-    myChart.setOption(option);
-    // 4. 当我们浏览器缩放的时候，图表也等比例缩放
-    window.addEventListener("resize", function () {
-        // 让我们的图表调用 resize这个方法
-        myChart.resize();
-    });
-})();
 

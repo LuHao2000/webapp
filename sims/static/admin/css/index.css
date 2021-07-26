@@ -30,13 +30,28 @@ header {
     height: 1.25rem;
     background: url(../images/head_bg.png) no-repeat top center;
     background-size: 100% 100%;
+    text-align: center;
 }
 
-header h1 {
+.h1 {
     font-size: 0.475rem;
+    font-family: Heiti;
     color: #fff;
     text-align: center;
     line-height: 1rem;
+    display:inline-block;
+}
+.h2 {
+    font-size: 0.325rem;
+    color: #fff;
+    align: center;
+    line-height: 1rem;
+    display:inline-block;
+    opacity: .7;
+}
+a{
+    color:#fff;
+    text-decoration: none;
 }
 
 header .showTime {

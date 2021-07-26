@@ -1,5 +1,4 @@
-
-var bkExtend = function() {
+var bkExtend = function () {
     var A = arguments;
     if (A.length == 1) {
         A = [this, A[0]]
@@ -9,11 +8,15 @@ var bkExtend = function() {
     }
     return A[0]
 };
-function bkClass() {}
-bkClass.prototype.construct = function() {}
+
+function bkClass() {
+}
+
+bkClass.prototype.construct = function () {
+}
 ;
-bkClass.extend = function(C) {
-    var A = function() {
+bkClass.extend = function (C) {
+    var A = function () {
         if (arguments[0] !== bkClass) {
             return this.construct.apply(this, arguments)
         }
@@ -26,30 +29,30 @@ bkClass.extend = function(C) {
 }
 ;
 var bkElement = bkClass.extend({
-    construct: function(B, A) {
+    construct: function (B, A) {
         if (typeof (B) == "string") {
             B = (A || document).createElement(B)
         }
         B = $BK(B);
         return B
     },
-    appendTo: function(A) {
+    appendTo: function (A) {
         A.appendChild(this);
         return this
     },
-    appendBefore: function(A) {
+    appendBefore: function (A) {
         A.parentNode.insertBefore(this, A);
         return this
     },
-    addEvent: function(B, A) {
+    addEvent: function (B, A) {
         bkLib.addEvent(this, B, A);
         return this
     },
-    setContent: function(A) {
+    setContent: function (A) {
         this.innerHTML = A;
         return this
     },
-    pos: function() {
+    pos: function () {
         var C = curtop = 0;
         var B = obj = this;
         if (obj.offsetParent) {
@@ -61,65 +64,66 @@ var bkElement = bkClass.extend({
         var A = (!window.opera) ? parseInt(this.getStyle("border-width") || this.style.border) || 0 : 0;
         return [C + A, curtop + A + this.offsetHeight]
     },
-    noSelect: function() {
+    noSelect: function () {
         bkLib.noSelect(this);
         return this
     },
-    parentTag: function(A) {
+    parentTag: function (A) {
         var B = this;
         do {
             if (B && B.nodeName && B.nodeName.toUpperCase() == A) {
                 return B
             }
             B = B.parentNode
-        } while (B);return false
+        } while (B);
+        return false
     },
-    hasClass: function(A) {
+    hasClass: function (A) {
         return this.className.match(new RegExp("(\\s|^)nicEdit-" + A + "(\\s|$)"))
     },
-    addClass: function(A) {
+    addClass: function (A) {
         if (!this.hasClass(A)) {
             this.className += " nicEdit-" + A
         }
         return this
     },
-    removeClass: function(A) {
+    removeClass: function (A) {
         if (this.hasClass(A)) {
             this.className = this.className.replace(new RegExp("(\\s|^)nicEdit-" + A + "(\\s|$)"), " ")
         }
         return this
     },
-    setStyle: function(A) {
+    setStyle: function (A) {
         var B = this.style;
         for (var C in A) {
             switch (C) {
-            case "float":
-                B.cssFloat = B.styleFloat = A[C];
-                break;
-            case "opacity":
-                B.opacity = A[C];
-                B.filter = "alpha(opacity=" + Math.round(A[C] * 100) + ")";
-                break;
-            case "className":
-                this.className = A[C];
-                break;
-            default:
-                B[C] = A[C]
+                case "float":
+                    B.cssFloat = B.styleFloat = A[C];
+                    break;
+                case "opacity":
+                    B.opacity = A[C];
+                    B.filter = "alpha(opacity=" + Math.round(A[C] * 100) + ")";
+                    break;
+                case "className":
+                    this.className = A[C];
+                    break;
+                default:
+                    B[C] = A[C]
             }
         }
         return this
     },
-    getStyle: function(A, C) {
+    getStyle: function (A, C) {
         var B = (!C) ? document.defaultView : C;
         if (this.nodeType == 1) {
             return (B && B.getComputedStyle) ? B.getComputedStyle(this, null).getPropertyValue(A) : this.currentStyle[bkLib.camelize(A)]
         }
     },
-    remove: function() {
+    remove: function () {
         this.parentNode.removeChild(this);
         return this
     },
-    setAttributes: function(A) {
+    setAttributes: function (A) {
         for (var B in A) {
             this[B] = A[B]
         }
@@ -128,18 +132,18 @@ var bkElement = bkClass.extend({
 });
 var bkLib = {
     isMSIE: (navigator.appVersion.indexOf("MSIE") != -1),
-    addEvent: function(C, B, A) {
+    addEvent: function (C, B, A) {
         (C.addEventListener) ? C.addEventListener(B, A, false) : C.attachEvent("on" + B, A)
     },
-    toArray: function(C) {
+    toArray: function (C) {
         var B = C.length
-          , A = new Array(B);
+            , A = new Array(B);
         while (B--) {
             A[B] = C[B]
         }
         return A
     },
-    noSelect: function(B) {
+    noSelect: function (B) {
         if (B.setAttribute && B.nodeName.toLowerCase() != "input" && B.nodeName.toLowerCase() != "textarea") {
             B.setAttribute("unselectable", "on")
         }
@@ -147,15 +151,15 @@ var bkLib = {
             bkLib.noSelect(B.childNodes[A])
         }
     },
-    camelize: function(A) {
-        return A.replace(/\-(.)/g, function(B, C) {
+    camelize: function (A) {
+        return A.replace(/\-(.)/g, function (B, C) {
             return C.toUpperCase()
         })
     },
-    inArray: function(A, B) {
+    inArray: function (A, B) {
         return (bkLib.search(A, B) != null)
     },
-    search: function(A, C) {
+    search: function (A, C) {
         for (var B = 0; B < A.length; B++) {
             if (A[B] == C) {
                 return B
@@ -163,7 +167,7 @@ var bkLib = {
         }
         return null
     },
-    cancelEvent: function(A) {
+    cancelEvent: function (A) {
         A = A || window.event;
         if (A.preventDefault && A.stopPropagation) {
             A.preventDefault();
@@ -172,7 +176,7 @@ var bkLib = {
         return false
     },
     domLoad: [],
-    domLoaded: function() {
+    domLoaded: function () {
         if (arguments.callee.done) {
             return
         }
@@ -181,14 +185,14 @@ var bkLib = {
             bkLib.domLoad[i]()
         }
     },
-    onDomLoaded: function(A) {
+    onDomLoaded: function (A) {
         this.domLoad.push(A);
         if (document.addEventListener) {
             document.addEventListener("DOMContentLoaded", bkLib.domLoaded, null)
         } else {
             if (bkLib.isMSIE) {
                 document.write("<style>.nicEdit-main p { margin: 0; height:100px; }</style><script id=__ie_onload defer " + ((location.protocol == "https:") ? "src='javascript:void(0)'" : "src=//0") + "><\/script>");
-                $BK("__ie_onload").onreadystatechange = function() {
+                $BK("__ie_onload").onreadystatechange = function () {
                     if (this.readyState == "complete") {
                         bkLib.domLoaded()
                     }
@@ -198,14 +202,16 @@ var bkLib = {
         window.onload = bkLib.domLoaded
     }
 };
+
 function $BK(A) {
     if (typeof (A) == "string") {
         A = document.getElementById(A)
     }
     return (A && !A.appendTo) ? bkExtend(A, bkElement.prototype) : A
 }
+
 var bkEvent = {
-    addEvent: function(A, B) {
+    addEvent: function (A, B) {
         if (B) {
             this.eventList = this.eventList || {};
             this.eventList[A] = this.eventList[A] || [];
@@ -213,9 +219,9 @@ var bkEvent = {
         }
         return this
     },
-    fireEvent: function() {
+    fireEvent: function () {
         var A = bkLib.toArray(arguments)
-          , C = A.shift();
+            , C = A.shift();
         if (this.eventList && this.eventList[C]) {
             for (var B = 0; B < this.eventList[C].length; B++) {
                 this.eventList[C][B].apply(this, A)
@@ -223,25 +229,27 @@ var bkEvent = {
         }
     }
 };
+
 function __(A) {
     return A
 }
-Function.prototype.closure = function() {
+
+Function.prototype.closure = function () {
     var A = this
-      , B = bkLib.toArray(arguments)
-      , C = B.shift();
-    return function() {
+        , B = bkLib.toArray(arguments)
+        , C = B.shift();
+    return function () {
         if (typeof (bkLib) != "undefined") {
             return A.apply(C, B.concat(bkLib.toArray(arguments)))
         }
     }
 }
 ;
-Function.prototype.closureListener = function() {
+Function.prototype.closureListener = function () {
     var A = this
-      , C = bkLib.toArray(arguments)
-      , B = C.shift();
-    return function(E) {
+        , C = bkLib.toArray(arguments)
+        , B = C.shift();
+    return function (E) {
         E = E || window.event;
         if (E.target) {
             var D = E.target
@@ -380,23 +388,23 @@ var nicEditorConfig = bkClass.extend({
     }
 
 });
-;var nicEditors = {
+var nicEditors = {
     nicPlugins: [],
     editors: [],
-    registerPlugin: function(B, A) {
+    registerPlugin: function (B, A) {
         this.nicPlugins.push({
             p: B,
             o: A
         })
     },
-    allTextAreas: function(C) {
+    allTextAreas: function (C) {
         var A = document.getElementsByTagName("textarea");
         for (var B = 0; B < A.length; B++) {
             nicEditors.editors.push(new nicEditor(C).panelInstance(A[B]))
         }
         return nicEditors.editors
     },
-    findEditor: function(C) {
+    findEditor: function (C) {
         var B = nicEditors.editors;
         for (var A = 0; A < B.length; A++) {
             if (B[A].instanceById(C)) {
@@ -406,19 +414,19 @@ var nicEditorConfig = bkClass.extend({
     }
 };
 var nicEditor = bkClass.extend({
-    construct: function(C) {
+    construct: function (C) {
         this.options = new nicEditorConfig();
         bkExtend(this.options, C);
-        this.nicInstances = new Array();
-        this.loadedPlugins = new Array();
+        this.nicInstances = [];
+        this.loadedPlugins = [];
         var A = nicEditors.nicPlugins;
         for (var B = 0; B < A.length; B++) {
-            this.loadedPlugins.push(new A[B].p(this,A[B].o))
+            this.loadedPlugins.push(new A[B].p(this, A[B].o))
         }
         nicEditors.editors.push(this);
         bkLib.addEvent(document.body, "mousedown", this.selectCheck.closureListener(this))
     },
-    panelInstance: function(B, C) {
+    panelInstance: function (B, C) {
         B = this.checkReplace($BK(B));
         var A = new bkElement("DIV").setStyle({
             width: (parseInt(B.getStyle("width")) || B.clientWidth) + "px"
@@ -426,7 +434,7 @@ var nicEditor = bkClass.extend({
         this.setPanel(A);
         return this.addInstance(B, C)
     },
-    checkReplace: function(B) {
+    checkReplace: function (B) {
         var A = nicEditors.findEditor(B);
         if (A) {
             A.removeInstance(B);
@@ -434,17 +442,17 @@ var nicEditor = bkClass.extend({
         }
         return B
     },
-    addInstance: function(B, C) {
+    addInstance: function (B, C) {
         B = this.checkReplace($BK(B));
         if (B.contentEditable || !!window.opera) {
-            var A = new nicEditorInstance(B,C,this)
+            var A = new nicEditorInstance(B, C, this)
         } else {
-            var A = new nicEditorIFrameInstance(B,C,this)
+            var A = new nicEditorIFrameInstance(B, C, this)
         }
         this.nicInstances.push(A);
         return this
     },
-    removeInstance: function(C) {
+    removeInstance: function (C) {
         C = $BK(C);
         var B = this.nicInstances;
         for (var A = 0; A < B.length; A++) {
@@ -454,13 +462,13 @@ var nicEditor = bkClass.extend({
             }
         }
     },
-    removePanel: function(A) {
+    removePanel: function (A) {
         if (this.nicPanel) {
             this.nicPanel.remove();
             this.nicPanel = null
         }
     },
-    instanceById: function(C) {
+    instanceById: function (C) {
         C = $BK(C);
         var B = this.nicInstances;
         for (var A = 0; A < B.length; A++) {
@@ -469,17 +477,17 @@ var nicEditor = bkClass.extend({
             }
         }
     },
-    setPanel: function(A) {
-        this.nicPanel = new nicEditorPanel($BK(A),this.options,this);
+    setPanel: function (A) {
+        this.nicPanel = new nicEditorPanel($BK(A), this.options, this);
         this.fireEvent("panel", this.nicPanel);
         return this
     },
-    nicCommand: function(B, A) {
+    nicCommand: function (B, A) {
         if (this.selectedInstance) {
             this.selectedInstance.nicCommand(B, A)
         }
     },
-    getIcon: function(D, A) {
+    getIcon: function (D, A) {
         var C = this.options.iconList[D];
         var B = (A.iconFiles) ? A.iconFiles[D] : "";
         return {
@@ -487,13 +495,14 @@ var nicEditor = bkClass.extend({
             backgroundPosition: ((C) ? ((C - 1) * -18) : 0) + "px 0px"
         }
     },
-    selectCheck: function(C, A) {
+    selectCheck: function (C, A) {
         var B = false;
         do {
             if (A.className && A.className.indexOf("nicEdit") != -1) {
                 return false
             }
-        } while (A = A.parentNode);this.fireEvent("blur", this.selectedInstance, A);
+        } while (A = A.parentNode);
+        this.fireEvent("blur", this.selectedInstance, A);
         this.lastSelectedInstance = this.selectedInstance;
         this.selectedInstance = null;
         return false
@@ -502,7 +511,7 @@ var nicEditor = bkClass.extend({
 nicEditor = nicEditor.extend(bkEvent);
 var nicEditorInstance = bkClass.extend({
     isSelected: false,
-    construct: function(G, D, C) {
+    construct: function (G, D, C) {
         this.ne = C;
         this.elm = this.e = G;
         this.options = D || {};
@@ -549,7 +558,7 @@ var nicEditorInstance = bkClass.extend({
         this.init();
         this.blur()
     },
-    init: function() {
+    init: function () {
         this.elm.setAttribute("contentEditable", "true");
         if (this.getContent() == "") {
             this.setContent("<br />")
@@ -558,7 +567,7 @@ var nicEditorInstance = bkClass.extend({
         this.elm.addEvent("mousedown", this.selected.closureListener(this)).addEvent("keypress", this.keyDown.closureListener(this)).addEvent("focus", this.selected.closure(this)).addEvent("blur", this.blur.closure(this)).addEvent("keyup", this.selected.closure(this));
         this.ne.fireEvent("add", this)
     },
-    remove: function() {
+    remove: function () {
         this.saveContent();
         if (this.copyElm || this.options.hasPanel) {
             this.editorContain.remove();
@@ -570,20 +579,20 @@ var nicEditorInstance = bkClass.extend({
         this.disable();
         this.ne.fireEvent("remove", this)
     },
-    disable: function() {
+    disable: function () {
         this.elm.setAttribute("contentEditable", "false")
     },
-    getSel: function() {
+    getSel: function () {
         return (window.getSelection) ? window.getSelection() : document.selection
     },
-    getRng: function() {
+    getRng: function () {
         var A = this.getSel();
         if (!A || A.rangeCount === 0) {
             return
         }
         return (A.rangeCount > 0) ? A.getRangeAt(0) : A.createRange()
     },
-    selRng: function(A, B) {
+    selRng: function (A, B) {
         if (window.getSelection) {
             B.removeAllRanges();
             B.addRange(A)
@@ -591,7 +600,7 @@ var nicEditorInstance = bkClass.extend({
             A.select()
         }
     },
-    selElm: function() {
+    selElm: function () {
         var C = this.getRng();
         if (!C) {
             return
@@ -612,21 +621,21 @@ var nicEditorInstance = bkClass.extend({
             return $BK((this.getSel().type == "Control") ? C.item(0) : C.parentElement())
         }
     },
-    saveRng: function() {
+    saveRng: function () {
         this.savedRange = this.getRng();
         this.savedSel = this.getSel()
     },
-    restoreRng: function() {
+    restoreRng: function () {
         if (this.savedRange) {
             this.selRng(this.savedRange, this.savedSel)
         }
     },
-    keyDown: function(B, A) {
+    keyDown: function (B, A) {
         if (B.ctrlKey) {
             this.ne.fireEvent("key", this, B)
         }
     },
-    selected: function(C, A) {
+    selected: function (C, A) {
         if (!A && !(A = this.selElm)) {
             A = this.selElm()
         }
@@ -645,36 +654,36 @@ var nicEditorInstance = bkClass.extend({
         }
         return false
     },
-    blur: function() {
+    blur: function () {
         this.isFocused = false;
         this.elm.removeClass("selected")
     },
-    saveContent: function() {
+    saveContent: function () {
         if (this.copyElm || this.options.hasPanel) {
             this.ne.fireEvent("save", this);
             (this.copyElm) ? this.copyElm.value = this.getContent() : this.e.innerHTML = this.getContent()
         }
     },
-    getElm: function() {
+    getElm: function () {
         return this.elm
     },
-    getContent: function() {
+    getContent: function () {
         this.content = this.getElm().innerHTML;
         this.ne.fireEvent("get", this);
         return this.content
     },
-    setContent: function(A) {
+    setContent: function (A) {
         this.content = A;
         this.ne.fireEvent("set", this);
         this.elm.innerHTML = this.content
     },
-    nicCommand: function(B, A) {
+    nicCommand: function (B, A) {
         document.execCommand(B, false, A)
     }
 });
 var nicEditorIFrameInstance = nicEditorInstance.extend({
     savedStyles: [],
-    init: function() {
+    init: function () {
         var B = this.elm.innerHTML.replace(/^\s+|\s+$/g, "");
         this.elm.innerHTML = "";
         (!B) ? B = "<br />" : B;
@@ -699,10 +708,10 @@ var nicEditorIFrameInstance = nicEditorInstance.extend({
         }
         setTimeout(this.initFrame.closure(this), 50)
     },
-    disable: function() {
+    disable: function () {
         this.elm.innerHTML = this.getContent()
     },
-    initFrame: function() {
+    initFrame: function () {
         var B = $BK(this.elmFrame.contentWindow.document);
         B.designMode = "on";
         B.open();
@@ -717,32 +726,32 @@ var nicEditorIFrameInstance = nicEditorInstance.extend({
         this.frameDoc.addEvent("mousedown", this.selected.closureListener(this)).addEvent("keyup", this.heightUpdate.closureListener(this)).addEvent("keydown", this.keyDown.closureListener(this)).addEvent("keyup", this.selected.closure(this));
         this.ne.fireEvent("add", this)
     },
-    getElm: function() {
+    getElm: function () {
         return this.frameContent
     },
-    setContent: function(A) {
+    setContent: function (A) {
         this.content = A;
         this.ne.fireEvent("set", this);
         this.frameContent.innerHTML = this.content;
         this.heightUpdate()
     },
-    getSel: function() {
+    getSel: function () {
         return (this.frameWin) ? this.frameWin.getSelection() : this.frameDoc.selection
     },
-    heightUpdate: function() {
+    heightUpdate: function () {
         this.elmFrame.style.height = Math.max(this.frameContent.offsetHeight, this.initialHeight) + "px"
     },
-    nicCommand: function(B, A) {
+    nicCommand: function (B, A) {
         this.frameDoc.execCommand(B, false, A);
         setTimeout(this.heightUpdate.closure(this), 100)
     }
 });
 var nicEditorPanel = bkClass.extend({
-    construct: function(E, B, A) {
+    construct: function (E, B, A) {
         this.elm = E;
         this.options = B;
         this.ne = A;
-        this.panelButtons = new Array();
+        this.panelButtons = [];
         this.buttonList = bkExtend([], this.ne.options.buttonList);
         this.panelContain = new bkElement("DIV").setStyle({
             overflow: "hidden",
@@ -765,25 +774,25 @@ var nicEditorPanel = bkClass.extend({
         this.reorder();
         E.noSelect()
     },
-    addButton: function(buttonName, options, noOrder) {
+    addButton: function (buttonName, options, noOrder) {
         var button = options.buttons[buttonName];
-        var type = (button.type) ? eval("(typeof(" + button.type + ') == "undefined") ? null : ' + button.type + ";") : nicEditorButton;
+        var type = (button.type) ? eval("(typeof(" + button.type + ') == "undefined") ? null : ' + button.type + "") : nicEditorButton;
         var hasButton = bkLib.inArray(this.buttonList, buttonName);
         if (type && (hasButton || this.ne.options.fullPanel)) {
-            this.panelButtons.push(new type(this.panelElm,buttonName,options,this.ne));
+            this.panelButtons.push(new type(this.panelElm, buttonName, options, this.ne));
             if (!hasButton) {
                 this.buttonList.push(buttonName)
             }
         }
     },
-    findButton: function(B) {
+    findButton: function (B) {
         for (var A = 0; A < this.panelButtons.length; A++) {
             if (this.panelButtons[A].name == B) {
                 return this.panelButtons[A]
             }
         }
     },
-    reorder: function() {
+    reorder: function () {
         var C = this.buttonList;
         for (var B = 0; B < C.length; B++) {
             var A = this.findButton(C[B]);
@@ -792,12 +801,12 @@ var nicEditorPanel = bkClass.extend({
             }
         }
     },
-    remove: function() {
+    remove: function () {
         this.elm.remove()
     }
 });
 var nicEditorButton = bkClass.extend({
-    construct: function(D, A, C, B) {
+    construct: function (D, A, C, B) {
         this.options = C.buttons[A];
         this.name = A;
         this.ne = B;
@@ -829,13 +838,14 @@ var nicEditorButton = bkClass.extend({
         this.disable();
         this.init()
     },
-    init: function() {},
-    hide: function() {
+    init: function () {
+    },
+    hide: function () {
         this.contain.setStyle({
             display: "none"
         })
     },
-    updateState: function() {
+    updateState: function () {
         if (this.isDisabled) {
             this.setBg()
         } else {
@@ -850,36 +860,37 @@ var nicEditorButton = bkClass.extend({
             }
         }
     },
-    setBg: function(A) {
+    setBg: function (A) {
         switch (A) {
-        case "hover":
-            var B = {
-                border: "1px solid #c9dfff",
-                backgroundColor: "#c9dfff"
-            };
-            break;
-        case "active":
-            var B = {
-                border: "1px solid #666",
-                backgroundColor: "#c9dfff"
-            };
-            break;
-        default:
-            var B = {
-                border: "1px solid #f0f2ff",
-                backgroundColor: "#f0f2ff"
-            }
+            case "hover":
+                var B = {
+                    border: "1px solid #c9dfff",
+                    backgroundColor: "#c9dfff"
+                };
+                break;
+            case "active":
+                var B = {
+                    border: "1px solid #666",
+                    backgroundColor: "#c9dfff"
+                };
+                break;
+            default:
+                var B = {
+                    border: "1px solid #f0f2ff",
+                    backgroundColor: "#f0f2ff"
+                }
         }
         this.border.setStyle(B).addClass("button-" + A)
     },
-    checkNodes: function(A) {
+    checkNodes: function (A) {
         var B = A;
         do {
             if (this.options.tags && bkLib.inArray(this.options.tags, B.nodeName)) {
                 this.activate();
                 return true
             }
-        } while (B = B.parentNode && B.className != "nicEdit");B = $BK(A);
+        } while (B = B.parentNode && B.className != "nicEdit");
+        B = $BK(A);
         while (B.nodeType == 3) {
             B = $BK(B.parentNode)
         }
@@ -894,21 +905,21 @@ var nicEditorButton = bkClass.extend({
         this.deactivate();
         return false
     },
-    activate: function() {
+    activate: function () {
         if (!this.isDisabled) {
             this.isActive = true;
             this.updateState();
             this.ne.fireEvent("buttonActivate", this)
         }
     },
-    deactivate: function() {
+    deactivate: function () {
         this.isActive = false;
         this.updateState();
         if (!this.isDisabled) {
             this.ne.fireEvent("buttonDeactivate", this)
         }
     },
-    enable: function(A, B) {
+    enable: function (A, B) {
         this.isDisabled = false;
         this.contain.setStyle({
             opacity: 1
@@ -916,29 +927,29 @@ var nicEditorButton = bkClass.extend({
         this.updateState();
         this.checkNodes(B)
     },
-    disable: function(A, B) {
+    disable: function (A, B) {
         this.isDisabled = true;
         this.contain.setStyle({
             opacity: 0.6
         }).removeClass("buttonEnabled");
         this.updateState()
     },
-    toggleActive: function() {
+    toggleActive: function () {
         (this.isActive) ? this.deactivate() : this.activate()
     },
-    hoverOn: function() {
+    hoverOn: function () {
         if (!this.isDisabled) {
             this.isHover = true;
             this.updateState();
             this.ne.fireEvent("buttonOver", this)
         }
     },
-    hoverOff: function() {
+    hoverOff: function () {
         this.isHover = false;
         this.updateState();
         this.ne.fireEvent("buttonOut", this)
     },
-    mouseClick: function() {
+    mouseClick: function () {
         if (this.options.command) {
             this.ne.nicCommand(this.options.command, this.options.commandArgs);
             if (!this.options.noActive) {
@@ -947,7 +958,7 @@ var nicEditorButton = bkClass.extend({
         }
         this.ne.fireEvent("buttonClick", this)
     },
-    key: function(A, B) {
+    key: function (A, B) {
         if (this.options.key && B.ctrlKey && String.fromCharCode(B.keyCode || B.charCode).toLowerCase() == this.options.key) {
             this.mouseClick();
             if (B.preventDefault) {
@@ -957,26 +968,27 @@ var nicEditorButton = bkClass.extend({
     }
 });
 var nicPlugin = bkClass.extend({
-    construct: function(B, A) {
+    construct: function (B, A) {
         this.options = A;
         this.ne = B;
         this.ne.addEvent("panel", this.loadPanel.closure(this));
         this.init()
     },
-    loadPanel: function(C) {
+    loadPanel: function (C) {
         var B = this.options.buttons;
         for (var A in B) {
             C.addButton(A, this.options)
         }
         C.reorder()
     },
-    init: function() {}
+    init: function () {
+    }
 });
 
 var nicPaneOptions = {};
 
 var nicEditorPane = bkClass.extend({
-    construct: function(D, C, B, A) {
+    construct: function (D, C, B, A) {
         this.ne = C;
         this.elm = D;
         this.pos = D.pos();
@@ -1007,8 +1019,9 @@ var nicEditorPane = bkClass.extend({
         this.position();
         this.init()
     },
-    init: function() {},
-    position: function() {
+    init: function () {
+    },
+    position: function () {
         if (this.ne.nicPanel) {
             var B = this.ne.nicPanel.elm;
             var A = B.pos();
@@ -1020,45 +1033,45 @@ var nicEditorPane = bkClass.extend({
             }
         }
     },
-    toggle: function() {
+    toggle: function () {
         this.isVisible = !this.isVisible;
         this.contain.setStyle({
             display: ((this.isVisible) ? "block" : "none")
         })
     },
-    remove: function() {
+    remove: function () {
         if (this.contain) {
             this.contain.remove();
             this.contain = null
         }
     },
-    append: function(A) {
+    append: function (A) {
         A.appendTo(this.pane)
     },
-    setContent: function(A) {
+    setContent: function (A) {
         this.pane.setContent(A)
     }
 });
 
 var nicEditorAdvancedButton = nicEditorButton.extend({
-    init: function() {
+    init: function () {
         this.ne.addEvent("selected", this.removePane.closure(this)).addEvent("blur", this.removePane.closure(this))
     },
-    mouseClick: function() {
+    mouseClick: function () {
         if (!this.isDisabled) {
             if (this.pane && this.pane.pane) {
                 this.removePane()
             } else {
-                this.pane = new nicEditorPane(this.contain,this.ne,{
+                this.pane = new nicEditorPane(this.contain, this.ne, {
                     width: (this.width || "270px"),
                     backgroundColor: "#fff"
-                },this);
+                }, this);
                 this.addPane();
                 this.ne.selectedInstance.saveRng()
             }
         }
     },
-    addForm: function(C, G) {
+    addForm: function (C, G) {
         this.form = new bkElement("form").addEvent("submit", this.submit.closureListener(this));
         this.pane.append(this.form);
         this.inputs = {};
@@ -1097,43 +1110,43 @@ var nicEditorAdvancedButton = nicEditorButton.extend({
                     }).appendTo(B)
                 }
                 switch (A) {
-                case "text":
-                    this.inputs[itm] = new bkElement("input").setAttributes({
-                        id: itm,
-                        value: F,
-                        type: "text"
-                    }).setStyle({
-                        margin: "2px 0",
-                        fontSize: "13px",
-                        "float": "left",
-                        height: "20px",
-                        border: "1px solid #ccc",
-                        overflow: "hidden"
-                    }).setStyle(D.style).appendTo(B);
-                    break;
-                case "select":
-                    this.inputs[itm] = new bkElement("select").setAttributes({
-                        id: itm
-                    }).setStyle({
-                        border: "1px solid #ccc",
-                        "float": "left",
-                        margin: "2px 0"
-                    }).appendTo(B);
-                    for (opt in D.options) {
-                        var E = new bkElement("option").setAttributes({
-                            value: opt,
-                            selected: (opt == F) ? "selected" : ""
-                        }).setContent(D.options[opt]).appendTo(this.inputs[itm])
-                    }
-                    break;
-                case "content":
-                    this.inputs[itm] = new bkElement("textarea").setAttributes({
-                        id: itm
-                    }).setStyle({
-                        border: "1px solid #ccc",
-                        "float": "left"
-                    }).setStyle(D.style).appendTo(B);
-                    this.inputs[itm].value = F
+                    case "text":
+                        this.inputs[itm] = new bkElement("input").setAttributes({
+                            id: itm,
+                            value: F,
+                            type: "text"
+                        }).setStyle({
+                            margin: "2px 0",
+                            fontSize: "13px",
+                            "float": "left",
+                            height: "20px",
+                            border: "1px solid #ccc",
+                            overflow: "hidden"
+                        }).setStyle(D.style).appendTo(B);
+                        break;
+                    case "select":
+                        this.inputs[itm] = new bkElement("select").setAttributes({
+                            id: itm
+                        }).setStyle({
+                            border: "1px solid #ccc",
+                            "float": "left",
+                            margin: "2px 0"
+                        }).appendTo(B);
+                        for (opt in D.options) {
+                            var E = new bkElement("option").setAttributes({
+                                value: opt,
+                                selected: (opt == F) ? "selected" : ""
+                            }).setContent(D.options[opt]).appendTo(this.inputs[itm])
+                        }
+                        break;
+                    case "content":
+                        this.inputs[itm] = new bkElement("textarea").setAttributes({
+                            id: itm
+                        }).setStyle({
+                            border: "1px solid #ccc",
+                            "float": "left"
+                        }).setStyle(D.style).appendTo(B);
+                        this.inputs[itm].value = F
                 }
             }
         }
@@ -1148,8 +1161,9 @@ var nicEditorAdvancedButton = nicEditorButton.extend({
         }).appendTo(this.form);
         this.form.onsubmit = bkLib.cancelEvent
     },
-    submit: function() {},
-    findElm: function(B, A, E) {
+    submit: function () {
+    },
+    findElm: function (B, A, E) {
         var D = this.ne.selectedInstance.getElm().getElementsByTagName(B);
         for (var C = 0; C < D.length; C++) {
             if (D[C].getAttribute(A) == E) {
@@ -1157,7 +1171,7 @@ var nicEditorAdvancedButton = nicEditorButton.extend({
             }
         }
     },
-    removePane: function() {
+    removePane: function () {
         if (this.pane) {
             this.pane.remove();
             this.pane = null;
@@ -1167,24 +1181,24 @@ var nicEditorAdvancedButton = nicEditorButton.extend({
 });
 
 var nicButtonTips = bkClass.extend({
-    construct: function(A) {
+    construct: function (A) {
         this.ne = A;
         A.addEvent("buttonOver", this.show.closure(this)).addEvent("buttonOut", this.hide.closure(this))
     },
-    show: function(A) {
+    show: function (A) {
         this.timer = setTimeout(this.create.closure(this, A), 400)
     },
-    create: function(A) {
+    create: function (A) {
         this.timer = null;
         if (!this.pane) {
-            this.pane = new nicEditorPane(A.button,this.ne,{
+            this.pane = new nicEditorPane(A.button, this.ne, {
                 fontSize: "12px",
                 marginTop: "5px"
             });
             this.pane.setContent(A.options.name)
         }
     },
-    hide: function(A) {
+    hide: function (A) {
         if (this.timer) {
             clearTimeout(this.timer)
         }
@@ -1216,12 +1230,12 @@ var nicSelectOptions = {
 };
 
 var nicEditorSelect = bkClass.extend({
-    construct: function(D, A, C, B) {
+    construct: function (D, A, C, B) {
         this.options = C.buttons[A];
         this.elm = D;
         this.ne = B;
         this.name = A;
-        this.selOptions = new Array();
+        this.selOptions = [];
         this.margin = new bkElement("div").setStyle({
             "float": "left",
             margin: "2px 1px 0 1px"
@@ -1263,30 +1277,30 @@ var nicEditorSelect = bkClass.extend({
         this.disable();
         this.init()
     },
-    disable: function() {
+    disable: function () {
         this.isDisabled = true;
         this.close();
         this.contain.setStyle({
             opacity: 0.6
         })
     },
-    enable: function(A) {
+    enable: function (A) {
         this.isDisabled = false;
         this.close();
         this.contain.setStyle({
             opacity: 1
         })
     },
-    setDisplay: function(A) {
+    setDisplay: function (A) {
         this.txt.setContent(A)
     },
-    toggle: function() {
+    toggle: function () {
         if (!this.isDisabled) {
             (this.pane) ? this.close() : this.open()
         }
     },
-    open: function() {
-        this.pane = new nicEditorPane(this.items,this.ne,{
+    open: function () {
+        this.pane = new nicEditorPane(this.items, this.ne, {
             width: "88px",
             padding: "0px",
             borderTop: 0,
@@ -1315,25 +1329,25 @@ var nicEditorSelect = bkClass.extend({
             }
         }
     },
-    close: function() {
+    close: function () {
         if (this.pane) {
             this.pane = this.pane.remove()
         }
     },
-    over: function(A) {
+    over: function (A) {
         A.setStyle({
             backgroundColor: "#bbd4ff"
         })
     },
-    out: function(A) {
+    out: function (A) {
         A.setStyle({
             backgroundColor: "#fff"
         })
     },
-    add: function(B, A) {
-        this.selOptions.push(new Array(B,A))
+    add: function (B, A) {
+        this.selOptions.push([B, A])
     },
-    update: function(A) {
+    update: function (A) {
         this.ne.nicCommand(this.options.command, A);
         this.close()
     }
@@ -1347,7 +1361,7 @@ var nicEditorFontSizeSelect = nicEditorSelect.extend({
         5: "5&nbsp;(18pt)",
         6: "6&nbsp;(24pt)"
     },
-    init: function() {
+    init: function () {
         this.setDisplay("Font&nbsp;Size...");
         for (itm in this.sel) {
             this.add(itm, '<font size="' + itm + '">' + this.sel[itm] + "</font>")
@@ -1366,7 +1380,7 @@ var nicEditorFontFamilySelect = nicEditorSelect.extend({
         "trebuchet ms": "Trebuchet",
         verdana: "Verdana"
     },
-    init: function() {
+    init: function () {
         this.setDisplay("Font&nbsp;Family...");
         for (itm in this.sel) {
             this.add(itm, '<font face="' + itm + '">' + this.sel[itm] + "</font>")
@@ -1384,7 +1398,7 @@ var nicEditorFontFormatSelect = nicEditorSelect.extend({
         h2: "Heading&nbsp;2",
         h1: "Heading&nbsp;1"
     },
-    init: function() {
+    init: function () {
         this.setDisplay("Font&nbsp;Format...");
         for (itm in this.sel) {
             var A = itm.toUpperCase();
@@ -1410,7 +1424,7 @@ var nicLinkOptions = {
 };
 
 var nicLinkButton = nicEditorAdvancedButton.extend({
-    addPane: function() {
+    addPane: function () {
         this.ln = this.ne.selectedInstance.selElm().parentTag("A");
         this.addForm({
             "": {
@@ -1442,7 +1456,7 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
             }
         }, this.ln)
     },
-    submit: function(C) {
+    submit: function (C) {
         var A = this.inputs.href.value;
         if (A == "http://" || A == "") {
             alert("You must enter a URL to Create a Link");
@@ -1481,7 +1495,7 @@ var nicColorOptions = {
 };
 
 var nicEditorColorButton = nicEditorAdvancedButton.extend({
-    addPane: function() {
+    addPane: function () {
         var D = {
             0: "00",
             1: "33",
@@ -1519,23 +1533,23 @@ var nicEditorColorButton = nicEditorAdvancedButton.extend({
         }
         this.pane.append(H.noSelect())
     },
-    colorSelect: function(A) {
+    colorSelect: function (A) {
         this.ne.nicCommand("foreColor", A);
         this.removePane()
     },
-    on: function(A) {
+    on: function (A) {
         A.setStyle({
             border: "2px solid #000"
         })
     },
-    off: function(A, B) {
+    off: function (A, B) {
         A.setStyle({
             border: "2px solid " + B
         })
     }
 });
 var nicEditorBgColorButton = nicEditorColorButton.extend({
-    colorSelect: function(A) {
+    colorSelect: function (A) {
         this.ne.nicCommand("hiliteColor", A);
         this.removePane()
     }
@@ -1554,7 +1568,7 @@ var nicImageOptions = {
 };
 
 var nicImageButton = nicEditorAdvancedButton.extend({
-    addPane: function() {
+    addPane: function () {
         this.im = this.ne.selectedInstance.selElm().parentTag("IMG");
         this.addForm({
             "": {
@@ -1587,7 +1601,7 @@ var nicImageButton = nicEditorAdvancedButton.extend({
             }
         }, this.im)
     },
-    submit: function(B) {
+    submit: function (B) {
         var C = this.inputs.src.value;
         if (C == "" || C == "http://") {
             alert("You must enter a Image URL to insert");
@@ -1620,14 +1634,14 @@ var nicSaveOptions = {
 };
 
 var nicEditorSaveButton = nicEditorButton.extend({
-    init: function() {
+    init: function () {
         if (!this.ne.options.onSave) {
             this.margin.setStyle({
                 display: "none"
             })
         }
     },
-    mouseClick: function() {
+    mouseClick: function () {
         var B = this.ne.options.onSave;
         var A = this.ne.selectedInstance;
         B(A.getContent(), A.elm.id, A)

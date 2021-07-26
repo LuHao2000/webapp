@@ -1,0 +1,311 @@
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name='TTUNION_verify' content='b846c3c2b85efabc496d2a2b8399cd62'>
+    <meta name="sogou_site_verification" content="gI1bINaJcL"/>
+    <meta name="360-site-verification" content="37ae9186443cc6e270d8a52943cd3c5a"/>
+    <meta name="baidu_union_verify" content="99203948fbfbb64534dbe0f030cbe817">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE;chrome=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="AUI, a-ui.com">
+    <meta name="baidu-site-verification" content="ZVPGgtpUfW"/>
+    <title>发布招聘信息</title>
+    <link rel="icon" type="image/x-icon" href={% static 'favicon.ico' %}>
+    <link href={% static 'title.png' %} sizes="114x114" rel="apple-touch-icon-precomposed">
+    <link type="text/css" rel="stylesheet" href={% static 'admin/css/core.css' %}>
+    <link type="text/css" rel="stylesheet" href={% static 'admin/css/icon.css' %}>
+    <link type="text/css" rel="stylesheet" href={% static 'admin/css/home.css' %}>
+    <script type="text/javascript" src={% static 'admin/js/jquery.min.js' %}></script>
+
+    <script type="text/javascript">
+        var currentShowCity = 0;
+        $(document).ready(function () {
+            $("#province").change(function () {
+                $("#province option").each(function (i, o) {
+                    if ($(this).attr("selected")) {
+                        $(".city").hide();
+                        $(".city").eq(i).show();
+                        currentShowCity = i;
+                    }
+                });
+            });
+
+            $("#province").change();
+        });
+
+        function getSelectValue() {
+            alert("1级=" + $("#province").val());
+            $(".city").each(function (i, o) {
+                if (i == currentShowCity) {
+
+                    alert("2级=" + $(".city").eq(i).val());
+                }
+            });
+        }
+
+    </script>
+</head>
+<body>
+<!-- head YDC begin -->
+<header class="ydc-header">
+    <div class="ydc-entered">
+        <div class="ydc-header-content ydc-flex">
+            <div class="ydc-column">
+                <a href="toinfo" class="ydc-column-ydc-logo">中国石油大学（华东）就业信息平台——企业版
+                </a>
+            </div>
+            <div class="ydc-column">
+                <div class="ydc-column-user">
+                    <div class="ydc-user-photo">
+                        <a href="javascript:">
+                            <img src={% static 'admin/images/icon/photo.png' %} title="" about="" alt="">
+                        </a>
+                    </div>
+                    <div class="ydc-user-info">
+                        <div class="ydc-user-info-name">
+                            <a href="toinfo">海康威视</a>
+                        </div>
+                        <div class="ydc-user-info-func ydc-flex">
+                            <span class="ydc-tag">账号审核中</span>
+                            <span class="ydc-mal"><i class="ydc-icon ydc-icon-mail fl"></i><em>12</em></span>
+                            <a href="javascript:">退出</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- head YDC end -->
+<!-- content YDC begin -->
+<section>
+    <div class="ydc-content-slide ydc-body">
+        <div class="ydc-flex">
+            <!-- left begin -->
+            <div class="ydc-column ydc-column-2">
+                <div class="ydc-menu">
+                    <ul>
+                        <li class="ydc-menu-item">
+                            <a href="toinfo"><i class="ydc-icon ydc-icon-home fl"></i>账号信息</a>
+                        </li>
+                        <li class="ydc-menu-item">
+                            <a href="torelease"><i class="ydc-icon ydc-icon-find fl"></i>发布</a>
+                        </li>
+
+                        <li class="ydc-menu-item">
+								<span class="ydc-menu-sub-title">
+									<i class="ydc-icon ydc-icon-set fl"></i>查看
+								</span>
+                            <ul>
+                                <li>
+										<a href="indexEmp ">招聘信息</a>
+									</li>
+                                    <li>
+										<a href="toshow" >本企业就业学生信息</a>
+									</li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <!-- left end -->
+            <!-- right begin -->
+            <div class="ydc-column ydc-column-8">
+                <div class="ydc-release-content">
+                    <div class="ydc-tabPanel ydc-tabPanel-release">
+                        <div class="ydc-release-tab-head">
+                            <ul>
+                                <li class="hit">发布文章</li>
+
+                            </ul>
+                            <div class="ydc-release-amount">
+                                           <span>
+                                               今日发布数量：<em>0</em>
+                                               /6 <a href="tostandard" target="_blank">发文规范</a>
+                                           </span>
+                            </div>
+                        </div>
+                        <div class="ydc-panes">
+                            <div class="ydc-pane" style="display:block;">
+
+                                <div class="ydc-warning-default">
+                                    <p>标题字数需在10字到30字之间。</p>
+                                </div>
+
+                                <form class="layui-form " method="post" action="../editEmp/">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="id" value="{{ emp.id }}"/>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">企业编号</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" class="layui-input" name="ent_num"
+                                                   value="{{ emp.ent_num }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">企业名称</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="name" class="layui-input" value="{{ emp.name }}">
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">职位</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="pos" class="layui-input" value="{{ emp.pos }}">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">人数</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="hiring" class="layui-input"
+                                                   value="{{ emp.hiring }}">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">学历</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="edu_bgd" class="layui-input"
+                                                   value="{{ emp.edu_bgd }}">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">专业</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="major" class="layui-input" value="{{ emp.major }}">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">工资</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="salary" class="layui-input"
+                                                   value="{{ emp.salary }}">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">英语</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="en" class="layui-input" value="{{ emp.en }}">
+
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">职位描述</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="job_des" class="layui-input"
+                                                   value="{{ emp.job_des }}">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block">
+                                            <button class="layui-btn" type="submit">立即提交</button>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- right end -->
+
+
+</section>
+<!-- content YDC end -->
+<script type="text/javascript" src="admin/js/nicEdit.js"></script>
+<script type="text/javascript" src="admin/js/upImg.js"></script>
+<script type="text/javascript">
+
+    jQuery(function () {
+        upload_start();
+    });
+    //tab切换
+    $(function () {
+        $('.aui-ad-tab-title ul li').click(function () {
+            $(this).addClass('aui-current').siblings().removeClass('aui-current');
+            $('.aui-ad-tab-body>div:eq(' + $(this).index() + ')').show().siblings().hide();
+        })
+    });
+
+</script>
+<script type="text/javascript">
+
+    bkLib.onDomLoaded(function () {
+        nicEditors.allTextAreas()
+    });//编辑器
+
+</script>
+<script type="text/javascript">
+
+    var slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+            slideIndex = 1
+        }
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 3000); // AD滚动时间
+    }
+
+</script>
+<script type="text/javascript">
+
+    $(function () {
+        $('.ydc-tabPanel ul li').click(function () {
+            $(this).addClass('hit').siblings().removeClass('hit');
+            $('.ydc-panes>div:eq(' + $(this).index() + ')').show().siblings().hide();
+        })
+    })//tab
+
+</script>
+<script type="text/javascript">
+
+    function textLimitCheck(thisArea, maxLength) {
+        if (thisArea.value.length > maxLength) {
+            alert(maxLength + ' 个字限制. \r超出的将自动清除.');
+            thisArea.value = thisArea.value.substring(0, 30);
+            thisArea.focus();
+        }
+        messageCount.innerText = thisArea.value.length;
+        messageCount1.innerText = thisArea.value.length;
+        messageCount2.innerText = thisArea.value.length;
+    }//标题输入框字数限制
+
+</script>
+</body>
+</html>

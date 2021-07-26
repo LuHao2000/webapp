@@ -41,7 +41,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:;">
+                    <a href="javascript:">
                         <i class="layui-icon"></i>
                         <span>学生管理</span>
                         <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
@@ -55,6 +55,27 @@
                         <a href="../index" @click="onActive(index,index2)">学生列表</a>
                         <i class="layui-icon active">&#xe623;</i>
                     </div>
+                    <div>
+                        <a href="../index_jiuye" @click="onActive(index,index2)">就业生信息管理</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                    <div>
+                        <a href="../index_jieyue" @click="onActive(index,index2)">已解约学生信息</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:">
+                        <i class="layui-icon"></i>
+                        <span>招聘信息管理</span>
+                        <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
+
+                    </a>
+                    <div>
+                        <a href="../shenhe" @click="onActive(index,index2)">审核招聘信息</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+
                 </li>
 
                 <li>
@@ -65,7 +86,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:;">
+                    <a href="javascript:">
                         <i class="layui-icon"></i>
                         <span>系统设置</span>
                         <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
@@ -83,7 +104,7 @@
                 <li>
 
                 <li>
-                    <a href="javascript:;">
+                    <a href="javascript:">
                         <i class="layui-icon"></i>
                         <span>管理员管理</span>
                         <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
@@ -114,11 +135,11 @@
 
             </div>
             <div style="height: 46%;position: relative">
-            <div style="bottom: 0px;position: absolute">
-                <p id="showtime" style="color:white;font-size: large;text-align: center"></p>
-            </div>
+                <div style="bottom: 0px;position: absolute">
+                    <p id="showtime" style="color:white;font-size: large;text-align: center"></p>
+                </div>
 
-        </div>
+            </div>
         </div>
 
         <!--右侧-->
@@ -141,19 +162,62 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">性别</label>
                     <div class="layui-input-block">
-                        <input type="text" name="gender" class="layui-input" value="{{ student.gender }}">
+                        <!--<input type="text" name="gender" class="layui-input" value="{{ student.gender }}"> -->
+                        <select name="gender">
+                            <option>男</option>
+                            <option>女</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">专业</label>
                     <div class="layui-input-block">
-                        <input type="text" name="major" class="layui-input" value="{{ student.major }}">
+                        <!--    <input type="text" name="major" class="layui-input" value="{{ student.major }}"> -->
+                        <select name="major">
+                            <option>动力工程</option>
+                            <option>建筑与土木工程</option>
+                            <option>石油与天然气工程</option>
+                            <option>地质工程</option>
+                            <option>测绘工程</option>
+                            <option>化学工程</option>
+                            <option>安全工程</option>
+                            <option>材料工程</option>
+                            <option>机械工程</option>
+                            <option>电子与通信工程</option>
+                            <option>计算机技术</option>
+                            <option>工商管理</option>
+                            <option>工业工程</option>
+                            <option>会计</option>
+                            <option>物流工程</option>
+                            <option>材料工程</option>
+                            <option>船舶与海洋工程</option>
+                            <option>石油与天然气工程</option>
+                            <option>俄语口译</option>
+                            <option>英语笔译</option>
+                            <option>英语笔译</option>
+                            <option>英语口译</option>
+                            <option>电气工程</option>
+                            <option>电子与通信工程</option>
+                            <option>控制工程</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">院系</label>
                     <div class="layui-input-block">
-                        <input type="text" name="departments" class="layui-input" value="{{ student.departments }}">
+                        <!--    <input type="text" name="departments" class="layui-input" value="{{ student.departments }}">  -->
+                        <select name="major">
+                            <option>储运与建筑工程学院</option>
+                            <option>地球科学与技术学院</option>
+                            <option>化学工程学院</option>
+                            <option>机电工程学院</option>
+                            <option>计算机与通信工程学院</option>
+                            <option>经济管理学院</option>
+                            <option>理学院</option>
+                            <option>石油工程学院</option>
+                            <option>文学院</option>
+                            <option>信息与控制工程学院</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -166,7 +230,18 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">年度</label>
                     <div class="layui-input-block">
-                        <input type="text" name="ruxue_year" class="layui-input" value="{{ student.ruxue_year }}">
+                        <select name="ruxue_year">
+                            <option>2012</option>
+                            <option>2013</option>
+                            <option>2014</option>
+                            <option>2015</option>
+                            <option>2016</option>
+                            <option>2017</option>
+                            <option>2018</option>
+                            <option>2019</option>
+                            <option>2020</option>
+                            <option>2021</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -191,7 +266,13 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">学制</label>
                     <div class="layui-input-block">
-                        <input type="text" name="xuezhi" class="layui-input" value="{{ student.xuezhi }}">
+                        <select name="xuezhi">
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -228,7 +309,7 @@
     </div>
 
 </div>
-</div>
+
 
 <script>
     /* 时间 */

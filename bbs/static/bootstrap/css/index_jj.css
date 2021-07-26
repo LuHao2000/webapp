@@ -6,7 +6,7 @@
     padding: 0;
     list-style: none;
     text-align: none;
-    color: #1c99b0;
+
     font-family: "微软雅黑";
     text-decoration: none;
     font-weight: normal;
@@ -823,4 +823,64 @@ header nav .tel dl {
 
 .footer .add a {
     color: #bbb;
+}
+
+.msg-item{
+    margin: 10px;
+    /*color:#179898;*/
+    float:left;
+    width: 51%;
+    /*background: #94C2ED;*/
+    color: white;
+    padding: 5px 10px;
+    line-height: 26px;
+    font-size: 16px;
+    border-radius: 7px;
+    position: relative;
+}
+.msg-item-mine{
+
+    margin-right: 10px;
+    /* color: #179898; */
+    float: right;
+    width: 51%;
+    /*background: #94C2ED;*/
+    color: white;
+    padding: 5px 10px;
+    line-height: 26px;
+    font-size: 16px;
+    border-radius: 7px;
+    position: relative;
+
+}
+.msg-text{
+    font-size: 16px;
+    text-align: left;
+     background: #95ec69;
+     color: black;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    position: relative;
+}
+.msg-text-mine{
+    font-size: 16px;
+    text-align: right;
+    background: #94C2ED;
+     color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    position: relative;
+}
+.msg-name{
+    color:#179898;
+    font-size: 12px;
+    text-align: left;
+}
+.msg-name-mine{
+    color:#288dbc;
+    font-size: 12px;
+    text-align:right ;
+
 }

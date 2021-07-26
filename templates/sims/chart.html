@@ -5,13 +5,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>毕业生信息系统</title>
-{#  <link rel="stylesheet" href="css/index.css" />#}
+{#  <link rel="stylesheet" href="css/index2.css" />#}
     <link rel="stylesheet" href={%static 'admin/css/index.css' %}>
 </head>
 
 <body>
   <header>
-    <h1>毕业生信息数据统计</h1>
+    <div class="h1">毕业生信息数据统计</div>
+    <div class="h2" style="text-align: center"><a href="/sims/chart12/chart12" target="_blank" >(详情查看)</a></div>
+
     <div class="showTime"><span></span></div>
   </header>
   <section class="mainbox">
@@ -40,9 +42,9 @@
       </div>
     </div>
     <div class="column">
-      <div class="no">
-        <div class="no-hd">
-          <ul>
+    <div class="no">
+       <div class="no-hd">
+         <ul>
             <li>1548</li>
             <li>580</li>
           </ul>
@@ -89,6 +91,7 @@
       </div>
     </div>
   </section>
+  <link rel="stylesheet" href={%static 'admin/css/index.css' %}>
   <script src={%static 'admin/js/flexible.js'%}></script>
   <script src={%static 'admin/js/echarts.min.js'%}></script>
   <script src={%static 'admin/js/index.js'%}></script>

@@ -1,70 +1,72 @@
 {% load static %}
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>就业信息查看</title>
-        <link rel="stylesheet" type="text/css" href={% static 'css/message.css' %}>
-    </head>
-    <body>
-       <div class="info-container">
-           <div class="info-container-title">
-               <h2>招聘信息</h2>
-           </div>
-           <div class="info-container-list clearfix">
-               <div class="info-listItem">
-                   <div class="info-listItem-title">最新招聘</div>
-                   <dl class="info-listItem-list">
-                       <dt>
-                           <a href="#">
-                               <img src={%static 'css/img/news-001.png' %} alt="">
-                               <span>海康威视2022校招 | “启明星”技术达人招募计划启动</span>
-                           </a>
-                       </dt>
-                       <dd><a href="https://www.sohu.com/a/475391077_121124216">【校园招聘】长鑫存储2022校招提前批正式开启！</a></dd>
-                       <dd><a href="#">【遇见】新奥集团2021年Open Day耀你集合啦！</a></dd>
-                       <dd><a href="#">【校园招聘】蔚来2022届校园招聘提前批正式启动</a></dd>
-                   </dl>
-                   <a href="#" class="info-more">查看更多</a>
-               </div>
-               <div class="info-listItem">
-                   <div class="info-listItem-title">企业资讯</div>
-                   <dl class="info-listItem-list">
-                       <dt>
-                           <a href="#">
-                              <img src={%static 'css/img/news-003.png' %} alt="">
-                               <span>粤海酒店集团携手哈奇智能，共同探索商业价值</span>
-                           </a>
-                       </dt>
-                       <dd><a href="#">滴滴App遭下架后，共享出行会再造新格局吗？</a></dd>
-                       <dd><a href="#">中芯国际高管“裸辞”上热搜，芯片人才为什么如此稀缺</a></dd>
-                       <dd><a href="#">从觉醒到崛起，释放“她”经济中的新势能｜华兴π对</a></dd>
-                   </dl>
-                   <a href="#" class="info-more">查看更多</a>
-               </div>
-               <div class="info-listItem">
-                   <div class="info-listItem-title">就业指导</div>
-                   <dl class="info-listItem-list">
-                       <dt>
-                           <a href="#">
-                             <img src={%static 'css/img/news-002.png' %} alt="">
-                               <span>【国聘双选会】推荐！暑期实习专场线上双选会来了！</span>
-                           </a>
-                       </dt>
-                       <dd><a href="#">泛微软件北方大区2022届春招-中国石油大学</a></dd>
-                       <dd><a href="#">小职桥-“HR下午茶”-青岛鼎信通讯股份有限公司</a></dd>
-                       <dd><a href="#">2021年暑假澳门地区名校名企访学/实践项目宣讲会</a></dd>
-                   </dl>
-                   <a href="#" class="info-more">查看更多</a>
-               </div>
-           </div>
-       </div>
-    <div class="layui-form-item">
-       <a href="../sims/tologinin" class="info-more2">获取更多资讯请点击登录...</a>
+<head>
+    <meta charset="UTF-8">
+    <title>就业信息查看</title>
+    <link rel="stylesheet" type="text/css" href={% static 'css/message.css' %}>
+</head>
+<body>
+<div class="info-container">
+    <div class="info-container-title">
+        <h2>招聘信息</h2>
     </div>
-    <div class="ydc-footer">
-			<div>
-				<p>版权所有 中国石油大学（华东）计算机科学与技术系 学院地址： 山东省青岛市经济开发区长江西路66号 电话：13366285645   京ICP备16014951号</p>
-			</div>
-		</div>
-    </body>
+    <div class="info-container-list clearfix">
+        <div class="info-listItem">
+            <div class="info-listItem-title">最新招聘</div>
+            <dl class="info-listItem-list">
+                <dt>
+                    <a href="#">
+                        <img src={% static 'css/img/news-001.png' %} alt="">
+                        <span>海康威视2022校招 | “启明星”技术达人招募计划启动</span>
+                    </a>
+                </dt>
+                <dd><a href="https://www.sohu.com/a/475391077_121124216">【校园招聘】长鑫存储2022校招提前批正式开启！</a></dd>
+                <dd><a href="https://www.sohu.com/a/472595342_121124209">【遇见】新奥集团2021年Open Day耀你集合啦！</a></dd>
+                <dd><a href="https://www.sohu.com/a/473728435_121124031">【校园招聘】蔚来2022届校园招聘提前批正式启动</a></dd>
+            </dl>
+            <a href="#" class="info-more">查看更多</a>
+        </div>
+        <div class="info-listItem">
+            <div class="info-listItem-title">企业资讯</div>
+            <dl class="info-listItem-list">
+                <dt>
+                    <a href="https://baijiahao.baidu.com/s?id=1704442274363297468&wfr=spider&for=pc">
+                        <img src={% static 'css/img/news-003.png' %} alt="">
+                        <span>粤海酒店集团携手哈奇智能，共同探索商业价值</span>
+                    </a>
+                </dt>
+                <dd><a href="https://baijiahao.baidu.com/s?id=1704534122801284815&wfr=spider&for=pc">滴滴App遭下架后，共享出行会再造新格局吗？</a>
+                </dd>
+                <dd><a href="https://www.bjnews.com.cn/detail/162556445314978.html">中芯国际高管“裸辞”上热搜，芯片人才为什么如此稀缺</a></dd>
+                <dd><a href="https://view.inews.qq.com/k/20210706A023XX00?refer=wx_hot">从觉醒到崛起，释放“她”经济中的新势能｜华兴π对</a>
+                </dd>
+            </dl>
+            <a href="#" class="info-more">查看更多</a>
+        </div>
+        <div class="info-listItem">
+            <div class="info-listItem-title">就业指导</div>
+            <dl class="info-listItem-list">
+                <dt>
+                    <a href="#">
+                        <img src={% static 'css/img/news-002.png' %} alt="">
+                        <span>【国聘双选会】推荐！暑期实习专场线上双选会来了！</span>
+                    </a>
+                </dt>
+                <dd><a href="#">泛微软件北方大区2022届春招-中国石油大学</a></dd>
+                <dd><a href="https://jobs.51job.com/yx/co2543679.html">小职桥-“HR下午茶”-青岛鼎信通讯股份有限公司</a></dd>
+                <dd><a href="https://www.csust.edu.cn/gjjlc/info/1016/2488.htm">2021年暑假澳门地区名校名企访学/实践项目宣讲会</a></dd>
+            </dl>
+            <a href="#" class="info-more">查看更多</a>
+        </div>
+    </div>
+</div>
+<div class="layui-form-item">
+    <a href="../sims/tologinin" class="info-more2">获取更多资讯请点击登录...</a>
+</div>
+<div class="ydc-footer">
+    <div>
+        <p>版权所有 中国石油大学（华东）计算机科学与技术系 学院地址： 山东省青岛市经济开发区长江西路66号 电话：13366285645 京ICP备16014951号</p>
+    </div>
+</div>
+</body>
 </html>

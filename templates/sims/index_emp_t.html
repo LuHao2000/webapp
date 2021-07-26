@@ -1,0 +1,255 @@
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>审核招聘信息</title>
+    <link rel="stylesheet" href={% static 'layui/css/layui.css' %}>
+    <link rel="stylesheet" href={% static 'admin/css/style.css' %}>
+    <script src={% static 'layui/layui.js' %}></script>
+    <script src={% static 'js/jquery-3.3.1.min.js' %}></script>
+    <script src={% static 'js/vue.min.js' %}></script>
+    <script src={% static 'admin/js/config.js' %}></script>
+
+
+</head>
+<body onload="time()">
+
+
+<div id="app">
+    <!--顶栏-->
+    <header>
+        <h1 v-text="webname"></h1>
+        <div class="breadcrumb">
+            <i class="layui-icon">&#xe715;</i>
+            <ul>
+                <li v-for="vo in address">
+                    <a v-text="vo.name" :href="vo.url"></a> <span>/</span>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="main">
+        <!--左栏-->
+        <div class="left">
+            <ul class="cl">
+                <li>
+                    <a href="../toindex">
+                        <i class="layui-icon"></i>
+                        <span>首页</span>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:">
+                        <i class="layui-icon"></i>
+                        <span>学生管理</span>
+                        <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
+
+                    </a>
+                    <div>
+                        <a href="../add" @click="onActive(index,index2)">添加学生</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                    <div>
+                        <a href="../index" @click="onActive(index,index2)">学生列表</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                    <div>
+                        <a href="../index_jiuye" @click="onActive(index,index2)">就业生信息管理</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                    <div>
+                        <a href="../index_jieyue" @click="onActive(index,index2)">已解约学生信息</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:">
+                        <i class="layui-icon"></i>
+                        <span>招聘信息管理</span>
+                        <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
+
+                    </a>
+                    <div>
+                        <a href="../shenhe" @click="onActive(index,index2)">审核招聘信息</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+
+                </li>
+
+                <li>
+                    <a href="../chart12">
+                        <i class="layui-icon"></i>
+                        <span>数据可视化</span>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:">
+                        <i class="layui-icon"></i>
+                        <span>系统设置</span>
+                        <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
+
+                    </a>
+                    <div>
+                        <a href="http://www.upc.edu.cn/xygk/xywh.htm" @click="onActive(index,index2)">友情链接</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                    <div>
+                        <a href="../tosecurity" @click="onActive(index,index2)">修改密码</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                </li>
+
+
+                <li>
+                    <a href="javascript:">
+                        <i class="layui-icon"></i>
+                        <span>管理员管理</span>
+                        <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
+
+                    </a>
+                    <div>
+                        <a href="../setadmin" @click="onActive(index,index2)">添加管理员</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                    <div>
+                        <a href="../setuser" @click="onActive(index,index2)">删除管理员</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                </li>
+
+
+                <li>
+
+                    <a href="../tologinin">
+                        <i class="layui-icon"></i>
+                        <span>退出登录</span>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </a>
+                </li>
+
+            </ul>
+            <div style="height: 46%;position: relative">
+                <div style="bottom: 0px;position: absolute">
+                    <p id="showtime" style="color:white;font-size: large;text-align: center"></p>
+                </div>
+
+            </div>
+        </div>
+
+        <!--右侧-->
+        <div class="right p20">
+
+
+            <div class="layui-row">
+                <div class="layui-col-lg4" style="text-align: right">
+                    <form action="../findStudent/" method="post">
+                        {% csrf_token %}
+                        <div class="layui-input-inline" style="width: 300px">
+                            <input type="text" name="str" value="" placeholder="学号/单位/" class="layui-input key">
+                        </div>
+                        <button type="submit" class="layui-btn sou">搜索</button>
+                    </form>
+
+                </div>
+            </div>
+
+             <table class="layui-table layui-form">
+                <thead>
+
+                <tr>
+                    <th>审核</th>
+                    <th>编号</th>
+                    <th>企业名称</th>
+                    <th>职位</th>
+                    <th>人数</th>
+                    <th>学历</th>
+                    <th>专业</th>
+                    <th>工资</th>
+                    <th>英语要求</th>
+                    <th>职位描述</th>
+                    <th>审核是否通过</th>
+
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for emp in employment %}
+                    <tr>
+                        <td>
+                            <a class="btn btn-primary" href="../shenhe_b/?id={{ emp.id }}" >通过</a>
+
+                            <!-- /:第一次重定向成功 第二次直接替换  ./:第一次重定向成功 第二次拼接  ../:重定向每次都成功  -->
+                        </td>
+                        <td>{{ emp.id }}</td>
+                        <td>{{ emp.name }}</td>
+                        <td>{{ emp.pos }}</td>
+                        <td>{{ emp.hiring }}</td>
+                        <td>{{ emp.edu_bgd }}</td>
+                        <td>{{ emp.major }}</td>
+                        <td>{{ emp.salary }}</td>
+                        <td>{{ emp.en }}</td>
+                        <td>{{ emp.job_des }}</td>
+                        <td>{{ emp.flag }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+
+            <div class="page">
+                <ul class="pagination">
+
+
+                    {% if students.has_previous %}
+                        <li>
+                            <a href="?page={{ students.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% for number in students.paginator.page_range %}
+                        {% if number == students.number %}
+                            <a href="?page={{ number }}" style="font-size: 33px">{{ number }}</a>
+                        {% else %}
+                            <a href="?page={{ number }}">{{ number }}</a>
+                        {% endif %}
+
+                    {% endfor %}
+
+
+                    {% if students.has_next %}
+                        <li>
+                            <a href="?page={{ students.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    <!--    <span>{{ students.number }} /{{ students.paginator.num_pages }}</span>  -->
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    /* 时间 */
+    function time() {
+        t_div = document.getElementById('showtime');
+        var now = new Date()
+        t_div.innerHTML = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + "/" + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+        setTimeout(time, 1000);
+    }
+</script>
+
+<script src={% static 'admin/js/script.js' %}></script>
+<script src={% static 'admin/js/update.js' %}></script>
+</body>
+</html>

@@ -43,7 +43,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:;">
+                    <a href="javascript:">
                         <i class="layui-icon"></i>
                         <span>学生管理</span>
                         <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
@@ -58,6 +58,19 @@
                         <i class="layui-icon active">&#xe623;</i>
                     </div>
                 </li>
+                <li>
+                    <a href="javascript:">
+                        <i class="layui-icon"></i>
+                        <span>招聘信息管理</span>
+                        <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
+
+                    </a>
+                    <div>
+                        <a href="../shenhe" @click="onActive(index,index2)">审核招聘信息</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+
+                </li>
 
                 <li>
                     <a href="../chart12">
@@ -67,7 +80,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:;">
+                    <a href="javascript:">
                         <i class="layui-icon"></i>
                         <span>系统设置</span>
                         <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
@@ -85,7 +98,7 @@
 
 
                 <li>
-                    <a href="javascript:;">
+                    <a href="javascript:">
                         <i class="layui-icon"></i>
                         <span>管理员管理</span>
                         <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
@@ -189,16 +202,16 @@
     </div>
 </div>
 
-    <script>
-        /* 时间 */
-        function time() {
-            t_div = document.getElementById('showtime');
-            var now = new Date()
-            t_div.innerHTML = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + "/" + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-            setTimeout(time, 1000);
-        }
-    </script>
-    <script src={% static 'admin/js/script.js' %}></script>
-    <script src={% static 'admin/js/update.js' %}></script>
+<script>
+    /* 时间 */
+    function time() {
+        t_div = document.getElementById('showtime');
+        var now = new Date()
+        t_div.innerHTML = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + "/" + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+        setTimeout(time, 1000);
+    }
+</script>
+<script src={% static 'admin/js/script.js' %}></script>
+<script src={% static 'admin/js/update.js' %}></script>
 </body>
 </html>

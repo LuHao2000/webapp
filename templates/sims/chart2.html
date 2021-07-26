@@ -1,0 +1,163 @@
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>毕业生信息系统</title>
+{#  <link rel="stylesheet" href="css/index2.css" />#}
+    <link rel="stylesheet" href={%static 'admin/css/index2.css' %}>
+</head>
+
+<body>
+  <header>
+    <h1>毕业生信息数据统计</h1>
+    <div class="showTime"><span></span></div>
+  </header>
+  <section class="mainbox">
+{#    <div class="column">#}
+{#      <div class="panel bar">#}
+{#        <h2>各毕业年份人数#}
+{#          <a href="javascript:;"></a>#}
+{#        </h2>#}
+{#        <div class="chart"></div>#}
+{#        <div class="panel-footer"></div>#}
+{#      </div>#}
+{#      <div class="panel pie">#}
+{#        <h2>培养方式</h2>#}
+{#        <div class="chart"></div>#}
+{#        <div class="panel-footer"></div>#}
+{#      </div>#}
+{#       <div class="panel line">#}
+{#        <h2>性别人数变化</h2>#}
+{#        <div class="chart"></div>#}
+{#        <div class="panel-footer"></div>#}
+{#      </div>#}
+{#          <div class="panel funnel">#}
+{#        <h2>就业方向统计</h2>#}
+{#        <div class="chart"></div>#}
+{#        <div class="panel-footer"></div>#}
+{#      </div>#}
+{#    </div>#}
+    <div class="column">
+    <div class="no">
+       <div class="no-hd">
+         <ul>
+            <li>1548</li>
+            <li>580</li>
+          </ul>
+        </div>
+        <div class="no-bd">
+          <ul>
+            <li>2012年-2015年毕业总人数</li>
+            <li>最新年份毕业人数</li>
+          </ul>
+        </div>
+      </div>
+      <div class="map">
+        <div class="chart"></div>
+        <div class="map1"></div>
+        <div class="map2"></div>
+        <div class="map3"></div>
+      </div>
+        <div class="panel bar">
+        <h2>各毕业年份人数
+          <a href="javascript:;"></a>
+        </h2>
+        <div class="chart"></div>
+        <div class="panel-footer"></div>
+      </div>
+      <div class="panel pie">
+        <h2>培养方式</h2>
+        <div class="chart"></div>
+        <div class="panel-footer"></div>
+      </div>
+       <div class="panel line">
+        <h2>性别人数变化</h2>
+        <div class="chart"></div>
+        <div class="panel-footer"></div>
+      </div>
+          <div class="panel funnel">
+        <h2>就业方向统计</h2>
+        <div class="chart"></div>
+        <div class="panel-footer"></div>
+      </div>
+      <div class="panel radar">
+          <h2>各学院人数分布</h2>
+          <div class="chart"></div>
+        <div class="panel-footer"></div>
+      </div>
+        <div class="panel bar1">
+        <h2>接受我校毕业生的核心单位</h2>
+        <div class="chart"></div>
+        <div class="panel-footer"></div>
+      </div>
+      <div class="panel line1">
+        <h2>就业与升学人数</h2>
+        <div class="chart"></div>
+        <div class="panel-footer"></div>
+      </div>
+      <div class="panel pie1">
+        <h2>就业地区去向</h2>
+        <div class="chart"></div>
+        <div class="panel-footer"></div>
+      </div>
+        <div class="panel line2">
+        <h2>升学去向统计</h2>
+        <div class="chart"></div>
+        <div class="panel-footer"></div>
+      </div>
+    </div>
+{#    <div class="column">#}
+{#      <div class="panel bar1">#}
+{#        <h2>接受我校毕业生的核心单位</h2>#}
+{#        <div class="chart"></div>#}
+{#        <div class="panel-footer"></div>#}
+{#      </div>#}
+{#      <div class="panel line1">#}
+{#        <h2>就业与升学人数</h2>#}
+{#        <div class="chart"></div>#}
+{#        <div class="panel-footer"></div>#}
+{#      </div>#}
+{#      <div class="panel pie1">#}
+{#        <h2>就业地区去向</h2>#}
+{#        <div class="chart"></div>#}
+{#        <div class="panel-footer"></div>#}
+{#      </div>#}
+{#        <div class="panel line2">#}
+{#        <h2>升学去向统计</h2>#}
+{#        <div class="chart"></div>#}
+{#        <div class="panel-footer"></div>#}
+{#      </div>#}
+{#    </div>#}
+  </section>
+  <script src={%static 'admin/js/flexible.js' %}></script>
+  <script src={%static 'admin/js/echarts.min.js' %}></script>
+  <script src={%static 'admin/js/index.js' %}></script>
+  <script src={%static 'admin/js/china.js' %}></script>
+  <script src={%static 'admin/js/myMap.js' %}></script>
+{#  <script src="js/flexible.js"></script>#}
+{#  <script src="js/echarts.min.js"></script>#}
+{#  <script src="js/index.js"></script>#}
+{#  <script src="js/china.js"></script>#}
+{#  <script src="js/myMap.js"></script>#}
+
+  <script>
+    (function (fn) {
+      fn();
+      setInterval(fn, 1000);
+    })(function () {
+      var dt = new Date();
+      var m=dt.getMonth()+1;
+      document.querySelector(".showTime span").innerHTML =
+              dt.getFullYear()+"年"+
+              m+"月"+
+              dt.getDate() + "日-" +
+              dt.getHours() + "时" +
+              dt.getMinutes() + "分" +
+              dt.getSeconds() + "秒";
+    });
+  </script>
+</body>
+
+</html>

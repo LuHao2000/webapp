@@ -13,8 +13,10 @@
     <script src={% static 'js/vue.min.js' %}></script>
     <script src={% static 'admin/js/config.js' %}></script>
 
+
 </head>
 <body onload="time()">
+
 
 <div id="app">
     <!--顶栏-->
@@ -55,6 +57,27 @@
                         <a href="../index" @click="onActive(index,index2)">学生列表</a>
                         <i class="layui-icon active">&#xe623;</i>
                     </div>
+                    <div>
+                        <a href="../index_jiuye" @click="onActive(index,index2)">就业生信息管理</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                    <div>
+                        <a href="../index_jieyue" @click="onActive(index,index2)">已解约学生信息</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:">
+                        <i class="layui-icon"></i>
+                        <span>招聘信息管理</span>
+                        <i class="layui-icon arrow">&#xe61a;</i> <i class="layui-icon active">&#xe623;</i>
+
+                    </a>
+                    <div>
+                        <a href="../shenhe" @click="onActive(index,index2)">审核招聘信息</a>
+                        <i class="layui-icon active">&#xe623;</i>
+                    </div>
+
                 </li>
 
                 <li>
@@ -121,9 +144,6 @@
         <!--右侧-->
         <div class="right p20">
 
-            <div style="float:right">
-                <a href="../add" class="layui-btn">添加学生</a>
-            </div>
 
             <div class="layui-row">
                 <div class="layui-col-lg4" style="text-align: right">
@@ -134,6 +154,10 @@
                         </div>
                         <button type="submit" class="layui-btn sou">搜索</button>
                     </form>
+
+                </div>
+                <div style="float:right">
+                    <a href="../add" class="layui-btn">添加学生</a>
                 </div>
             </div>
 
@@ -141,7 +165,8 @@
                 <thead>
 
                 <tr>
-                    <th>操作</th>
+                    <th>编辑</th>
+                    <th>删除</th>
                     <th>编号</th>
                     <th>学号</th>
                     <th>性别</th>
@@ -162,9 +187,12 @@
                 {% for student in students %}
                     <tr>
                         <td>
-                            <a href="../edit/?id={{ student.id }}">编辑</a>
-                            <a href="../delete/?id={{ student.id }}">删除</a>
+                            <a class="btn btn-primary" href="../edit/?id={{ student.id }}">编辑</a>
+
                             <!-- /:第一次重定向成功 第二次直接替换  ./:第一次重定向成功 第二次拼接  ../:重定向每次都成功  -->
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" href="../delete/?id={{ student.id }}">删除</a>
                         </td>
                         <td>{{ student.id }}</td>
                         <td>{{ student.stuID }}</td>
@@ -197,7 +225,7 @@
                     {% endif %}
 
                     {% for number in students.paginator.page_range %}
-                            {% if number == students.number %}
+                        {% if number == students.number %}
                             <a href="?page={{ number }}" style="font-size: 33px">{{ number }}</a>
                         {% else %}
                             <a href="?page={{ number }}">{{ number }}</a>
@@ -213,7 +241,7 @@
                             </a>
                         </li>
                     {% endif %}
-                <!--    <span>{{ students.number }} /{{ students.paginator.num_pages }}</span>  -->
+                    <!--    <span>{{ students.number }} /{{ students.paginator.num_pages }}</span>  -->
                 </ul>
             </div>
 

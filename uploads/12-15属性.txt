@@ -1,0 +1,13 @@
+
+    stuID 学号
+    gender 性别
+    major 专业
+    departments 院系
+    edu_bgd 学历
+    admission_time 年度
+    cultivating_way 培养方式
+    departments（kaoqu_yuanxi） 考取院系
+    professional  (kaoqu_zhuaye) 考取专业
+     edu_system (xuezhi )学制
+   unit_loc (danwei_location) 单位所在地
+    unit  (danwei) 单位

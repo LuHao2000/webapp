@@ -44,9 +44,9 @@ def acc_login(request):
             return HttpResponseRedirect(request.GET.get('next') or '/bbs/')
         else:
             login_err = 'Wrong username or password'
-            return render(request,'login.html',{'login_err':login_err})
+            return render(request,'bbs_login.html',{'login_err':login_err})
     else:
-        return render(request,'login.html')
+        return render(request,'bbs_login.html')
 
 # 定义文章明细页面的视图函数
 def ariticle_detail(request,id):
@@ -95,6 +95,7 @@ def new_article(request):
             return render(request,'../../webapp1/templates/bbs/new_article.html',{'article_form':article_form,})
         return HttpResponse('创建成功')
 
+
 def file_upload(request):
     print(request.FILES)
     file_obj = request.FILES.get('filename')
@@ -110,6 +111,8 @@ def file_upload(request):
 def get_latest_article_count(request):
 
     latest_article_id = request.GET.get("latest_id")
+
+
 
     new_article_count = models.Article.objects.filter(id__gt=latest_article_id).count()
 

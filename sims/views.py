@@ -5,9 +5,8 @@ from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from sims import models
-from sims.models import userinfo
+from sims.models import userinfo ,Student_luhao_shanjian
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 
 
 def tomessage(request):
@@ -124,9 +123,45 @@ def index(request):
     # return render(request, 'list.html', {'contacts': contacts})
     return render(request, 'sims/user_index.html', {'students': students})
 
+def index_jiuye(request):
+    # conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
+    # students = models.Student_luhao_shanjian.objects.all()[0:20]
+    student_list = models.stu_jiuye.objects.all().exclude(jieyue=1)
+    paginator = Paginator(student_list, 25) # Show 25 contacts per page
+    page = request.GET.get('page')
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        students = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        students = paginator.page(paginator.num_pages)
+
+    # return render(request, 'list.html', {'contacts': contacts})
+    return render(request, 'sims/user_index_jiuye.html', {'students': students})
+
+def index_jieyue(request):
+
+    student_list = models.jieyue.objects.all()
+    paginator = Paginator(student_list, 25) # Show 25 contacts per page
+    page = request.GET.get('page')
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        students = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        students = paginator.page(paginator.num_pages)
+
+    # return render(request, 'list.html', {'contacts': contacts})
+    return render(request, 'sims/jieyue.html', {'students': students})
+
 
 def index_stu(request):
     # conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
+    from sims import models
     student_list = models.Student_luhao_shanjian.objects.all()
     paginator = Paginator(student_list, 25)  # Show 25 contacts per page
     page = request.GET.get('page')
@@ -303,7 +338,6 @@ def add(request):
         xuezhi = request.POST.get('xuezhi')
         danwei_location = request.POST.get('danwei_location')
         danwei = request.POST.get('danwei')
-        conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
         models.Student_luhao_shanjian.objects.create(
             stuID=stuID,
             gender=gender,
@@ -363,9 +397,9 @@ def add17(request):
             luqu_yuanbu=luqu_yuanbu,
             luqu_zhuanye=luqu_zhuanye,
             leixing=leixing,
+
         )
         return redirect('/sims/loginin/user_index_17')
-
 
 # 学生信息修改处理函数
 def edit(request):
@@ -567,9 +601,43 @@ def setadmin(request):
         cursor.close()
         # 关闭连接
         conn.close()
-        messages.error(request, '用户设置为管理员成功.')
+        messages.error(request, '用户设置为教务处成功.')
         return redirect('/sims/setadmin')
 
+
+def setaff(request):
+    if request.method == 'GET':
+        return render(request, 'sims/setadmin.html')
+    else:
+        username = request.POST.get("user")
+        conn = pymysql.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
+        cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
+        # 执行SQL，并返回收影响行数
+        cursor.execute("update sims_userinfo set flag=2 where user=%s", [username, ])
+        conn.commit()
+        # 关闭游标
+        cursor.close()
+        # 关闭连接
+        conn.close()
+        messages.error(request, '用户设置为学工处成功.')
+        return redirect('/sims/setadmin')
+
+def setent(request):
+    if request.method == 'GET':
+        return render(request, 'sims/setadmin.html')
+    else:
+        username = request.POST.get("user")
+        conn = pymysql.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
+        cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
+        # 执行SQL，并返回收影响行数
+        cursor.execute("update sims_userinfo set flag=3 where user=%s", [username, ])
+        conn.commit()
+        # 关闭游标
+        cursor.close()
+        # 关闭连接
+        conn.close()
+        messages.error(request, '用户设置为企业成功.')
+        return redirect('/sims/setadmin')
 
 def setuser(request):
     if request.method == 'GET':
@@ -585,5 +653,115 @@ def setuser(request):
         cursor.close()
         # 关闭连接
         conn.close()
-        messages.error(request, '用户设置为管理员成功.')
+        messages.error(request, '用户设置为普通账号成功.')
         return redirect('/sims/setuser')
+
+
+# 招聘信息列表处理函数
+def indexEmp(request):
+    from enterprise import models
+
+    employment = models.emp_info.objects.exclude(flag=0)
+    return render(request, 'sims/index_emp.html', {'employment': employment})
+
+
+# 查询招聘信息
+def findEmp(request):
+    # 获取搜索框的值
+    from enterprise import models
+
+    str = request.POST.get("str")
+    # 模糊查询
+    employment = models.emp_info.objects.filter(
+        Q(name__icontains=str)
+   | Q(pos__icontains=str) | Q(hiring__icontains=str) | Q(edu_bgd__icontains=str) | Q(major__icontains=str) | Q(salary__icontains=str) |
+        Q(en__icontains=str) )
+    # 获取数据的总条数
+    count = employment.__len__()
+
+    return render(request, "sims/index_emp.html", context={"employment": employment, "count": count})
+
+
+
+def set_jiuye(request):
+    if request.method == 'GET':
+        return render(request, 'sims/set_jiuye.html')
+    else:
+        # id = request.POST.get("id")
+        danwei_location = request.POST.get('danwei_location')
+        danwei = request.POST.get('danwei')
+        ter_id = request.POST.get('ter_id')
+
+        conn = pymysql.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
+        cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
+        # 执行SQL，并返回收影响行数
+        cursor.execute(
+            "update sims_stu_jiuye set danwei_location=%s,danwei =%s,jieyue =%s where stuID=%s",
+            [danwei_location, danwei, "0", ter_id, ])
+        conn.commit()
+        # 关闭游标
+        cursor.close()
+        # 关闭连接
+        conn.close()
+
+        # conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
+        models.jieyue.objects.filter(ter_id=ter_id).delete()
+        return render(request, 'sims/set_jiuye.html')
+
+
+def edit_jiuye(request):
+    if request.method == 'GET':
+        return render(request, 'sims/edit_jiuye.html')
+    else:
+        id = request.POST.get("id")
+        ter_time = request.POST.get('ter_time')
+        ter_ed = request.POST.get('ter_ed')
+        ter_id = request.POST.get('ter_id')
+        ter_user = request.POST.get('ter_user')
+        ter_ing = request.POST.get('ter_ing')
+        ter_reason = request.POST.get('ter_reason')
+        ter_note = request.POST.get('ter_note')
+        ter_compensation = request.POST.get('ter_compensation')
+
+        models.stu_jiuye.objects.filter(stuID=ter_id).update(jieyue="1")
+        # conn = MySQLdb.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
+        models.jieyue.objects.create(
+            ter_time=ter_time,
+            ter_ed=ter_ed,
+            ter_id = ter_id,
+            ter_user=ter_user,
+            ter_ing=ter_ing,
+            ter_reason=ter_reason,
+            ter_note=ter_note,
+            ter_compensation=ter_compensation,
+        )
+        # conn = pymysql.connect(host="localhost", user="root", passwd="717320", db="sms", charset='utf8')
+        # cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
+        # # 执行SQL，并返回收影响行数
+        # cursor.execute(
+        #     "update sims_stu_jiuye set jieyue=%s  where id=%s",[jieyue,id, ])
+        # conn.commit()
+        # # 关闭游标
+        # cursor.close()
+        # # 关闭连接
+        # conn.close()
+
+
+
+
+        return redirect('/sims/loginin/user_index_jiuye')
+
+def chart1212(request):
+    return render(request, 'sims/chart2.html')
+
+def shenhe(request):
+    from enterprise import models
+    id = request.GET.get("id")
+    models.emp_info.objects.filter(id=id).update(flag="1")
+    # return render(request, 'sims/index_emp_t.html')
+    return redirect('/sims/shenhe')
+
+def indexEmp_t(request):
+    from enterprise import models
+    employment = models.emp_info.objects.all()[0:20]
+    return render(request, 'sims/index_emp_t.html', {'employment': employment})
